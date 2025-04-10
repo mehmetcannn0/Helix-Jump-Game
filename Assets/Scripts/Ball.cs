@@ -19,6 +19,7 @@ public class Ball : MonoBehaviour
     private void FixedUpdate()
     {
         hasBounced = false;
+        CheckBelowSides();
     }
     // Update is called once per frame
 
@@ -75,38 +76,58 @@ public class Ball : MonoBehaviour
     }
     private void OnCollisionExit(Collision collision)
     {
-        //if (collision.gameObject.CompareTag("slice"))
-        //{
-        //    hasBounced = false;
-        //}
+        
         hasBounced = false;
     }
-    private void OnTriggerEnter(Collider other)
+
+     
+
+    void CheckBelowSides()
     {
+        Vector3 leftOrigin = transform.position + new Vector3(-0.2f, 0f, 0f); // topun solundan
+        Vector3 rightOrigin = transform.position + new Vector3(0.2f, 0f, 0f); // topun saðýndan
 
+        RaycastHit leftHit;
+        RaycastHit rightHit;
 
+        bool leftRay = Physics.Raycast(leftOrigin, Vector3.down, out leftHit, 0.2f);
+        bool rightRay = Physics.Raycast(rightOrigin, Vector3.down, out rightHit, 0.2f);
 
-        if (other.transform.CompareTag("gap"))
+         
+            Debug.DrawRay(leftOrigin, Vector3.down * 0.2f, Color.red);
+
+         
+            Debug.DrawRay(rightOrigin, Vector3.down * 0.2f, Color.blue);
+
+        if (leftRay && leftHit.collider.CompareTag("gap") && rightRay && rightHit.collider.CompareTag("gap"))
         {
-            combo++;
-            comboText.text = combo.ToString();
+            Debug.Log("Gap altýnda, düþ!");
+            // düþme veya zýplamama davranýþý
+             
+                combo++;
+                comboText.text = combo.ToString();
 
-            other.GetComponentInParent<Pizza>().DestroyPizza();
-            manager.UpdateSlider();
-            if (combo == 2)
-            {
-                Debug.Log("combo");
-                foreach (GameObject pizza in manager.pizzas)
+                leftHit.collider.GetComponentInParent<Pizza>().DestroyPizza();
+                manager.UpdateSlider();
+                if (combo == 2)
                 {
-                    foreach (Slice slice in pizza.GetComponentsInChildren<Slice>())
+                    Debug.Log("combo");
+                    foreach (GameObject pizza in manager.pizzas)
                     {
-                        slice.ChangeColor(true);
+                        foreach (Slice slice in pizza.GetComponentsInChildren<Slice>())
+                        {
+                            slice.ChangeColor(true);
+                        }
                     }
+
                 }
-
-            }
+           
+            hasBounced = false;
         }
-        hasBounced = false;
-
+        else if (leftRay || rightRay)
+        {
+            Debug.Log("Slice altýnda, zýpla!");
+            // zýplama davranýþý
+        }
     }
 }
