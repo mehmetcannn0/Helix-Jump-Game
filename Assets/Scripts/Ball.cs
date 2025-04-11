@@ -1,3 +1,6 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -6,46 +9,93 @@ public class Ball : MonoBehaviour
     public Rigidbody rb;
     public int bounceForce;
     public GameManager manager;
-    private bool hasBounced = false;
-    public int combo = 0;
     public TextMeshProUGUI comboText;
-    // Start is called before the first frame update
+    public TextMeshProUGUI comboUI;   
+    private bool hasBounced = false; 
+    private bool inGap = false;
+    public int combo = 0;
+
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
 
     }
-
-    private void FixedUpdate()
-    {
-        hasBounced = false;
-        CheckBelowSides();
+    private void Update()
+    { 
+        IsBallFalling();
     }
-    // Update is called once per frame
+    public void IsBallFalling()
+    {  
+            if (rb.velocity.y < 0 && hasBounced)
+            { 
+                hasBounced = false;
+            } 
+    } 
+    private void OnTriggerEnter(Collider other)
+    { 
+
+        if (other.transform.CompareTag("gap") && !hasBounced)
+        {
+            inGap = true;
+             
+            StartCoroutine(EnableSliceCollisionAfterDelay(0.2f));
+
+            combo++;
+            comboText.text = combo.ToString();
+
+            other.gameObject.GetComponentInParent<Pizza>().DestroyPizza(); 
+
+            manager.score += combo>1?combo:0 + manager.currentLevel;
+            manager.step ++;
+            manager.UpdateSlider();
+
+            if (combo == 2)
+            { 
+                ToggleComboUI();
+                foreach (GameObject pizza in manager.pizzas)
+                {
+                    foreach (Slice slice in pizza.GetComponentsInChildren<Slice>())
+                    {
+                        slice.ChangeColor(true);
+                    }
+                }
+
+            }
+
+            hasBounced = false;
+        }
+    }
+    IEnumerator EnableSliceCollisionAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        
+        inGap = false;
+
+
+    }
+
+    
+
 
     private void OnCollisionEnter(Collision collision)
-    {
-
-        if (collision.transform.CompareTag("slice") && !hasBounced)
+    { 
+        if (collision.transform.CompareTag("slice") && !hasBounced && !inGap)
         {
             hasBounced = true;
             rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
             rb.AddForce(bounceForce * Vector3.up, ForceMode.Impulse);
 
-        }
+        } 
         if (collision.transform.CompareTag("finish"))
         {
             Debug.Log("bolum býttý");
-            PlayerPrefs.SetInt("CurrentLevel", manager.currentLevel + 1);
-
-        }
-        if (collision.transform.CompareTag("redSlice"))
-        {
-            Debug.Log("red slice");
+            manager.NextLevel();
 
 
         }
-
+       
 
         if (combo >= 2)
         {
@@ -57,77 +107,44 @@ public class Ball : MonoBehaviour
                     slice.ChangeColor(false);
                 }
             }
-            if (collision.transform.tag != "wall")
+
+            if (collision.transform.CompareTag("slice") || collision.transform.CompareTag("redSlice"))
             {
                 collision.gameObject.GetComponentInParent<Pizza>().DestroyPizza();
             }
-            else
+            else if (collision.transform.CompareTag("wall"))
             {
-                Destroy(collision.gameObject);
-            }
 
+                collision.gameObject.GetComponent<Wall>().DestroyWall();
+                collision.gameObject.GetComponent<Wall>().MakeDisabled();
+            } 
+          
+
+            hasBounced = true;
+            rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+            rb.AddForce(bounceForce * Vector3.up, ForceMode.Impulse);
 
         }
         combo = 0;
+        Invoke(nameof(ToggleComboUI),1f);
+        if (collision.transform.CompareTag("redSlice"))
+        {
+            Time.timeScale = 0; 
+            Debug.Log("Game Over");
+            manager.GameOver();
+
+        }
+
+    }
+
+    public void ToggleComboUI()
+    {
+        comboText.gameObject.SetActive(combo >=2);
+        comboUI.gameObject.SetActive(combo >=2);
         comboText.text = combo.ToString();
 
 
-
-    }
-    private void OnCollisionExit(Collision collision)
-    {
-        
-        hasBounced = false;
     }
 
-     
 
-    void CheckBelowSides()
-    {
-        Vector3 leftOrigin = transform.position + new Vector3(-0.2f, 0f, 0f); // topun solundan
-        Vector3 rightOrigin = transform.position + new Vector3(0.2f, 0f, 0f); // topun saðýndan
-
-        RaycastHit leftHit;
-        RaycastHit rightHit;
-
-        bool leftRay = Physics.Raycast(leftOrigin, Vector3.down, out leftHit, 0.2f);
-        bool rightRay = Physics.Raycast(rightOrigin, Vector3.down, out rightHit, 0.2f);
-
-         
-            Debug.DrawRay(leftOrigin, Vector3.down * 0.2f, Color.red);
-
-         
-            Debug.DrawRay(rightOrigin, Vector3.down * 0.2f, Color.blue);
-
-        if (leftRay && leftHit.collider.CompareTag("gap") && rightRay && rightHit.collider.CompareTag("gap"))
-        {
-            Debug.Log("Gap altýnda, düþ!");
-            // düþme veya zýplamama davranýþý
-             
-                combo++;
-                comboText.text = combo.ToString();
-
-                leftHit.collider.GetComponentInParent<Pizza>().DestroyPizza();
-                manager.UpdateSlider();
-                if (combo == 2)
-                {
-                    Debug.Log("combo");
-                    foreach (GameObject pizza in manager.pizzas)
-                    {
-                        foreach (Slice slice in pizza.GetComponentsInChildren<Slice>())
-                        {
-                            slice.ChangeColor(true);
-                        }
-                    }
-
-                }
-           
-            hasBounced = false;
-        }
-        else if (leftRay || rightRay)
-        {
-            Debug.Log("Slice altýnda, zýpla!");
-            // zýplama davranýþý
-        }
-    }
 }

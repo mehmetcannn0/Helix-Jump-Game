@@ -57,9 +57,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slices: []
-  ownMaterial: {fileID: 0}
-  redMaterial: {fileID: 2100000, guid: e148d2e31b3537b488627d49a86d5439, type: 2}
-  greenMaterial: {fileID: 0}
   wall: {fileID: 0}
 --- !u!1001 &2294617130905626804
 PrefabInstance:
@@ -143,6 +140,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: pizza_dilimi (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c4558b2ea94cc6c4d9a5a491d07dd40e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c4558b2ea94cc6c4d9a5a491d07dd40e,
         type: 3}
@@ -234,8 +236,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   greenMaterial: {fileID: 2100000, guid: 0deac2a3688880b4db4e618b46ecfd82, type: 2}
-  ownMaterial: {fileID: 0}
-  tempMaterial: {fileID: 0}
+  redMaterial: {fileID: 2100000, guid: e148d2e31b3537b488627d49a86d5439, type: 2}
+  whiteMaterial: {fileID: 2100000, guid: 2f100abd3ba716946bbb1606d739cec1, type: 2}
+  sliceType: 0
 --- !u!4 &1752647248536833887 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c4558b2ea94cc6c4d9a5a491d07dd40e,
@@ -324,6 +327,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: pizza_dilimi (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c4558b2ea94cc6c4d9a5a491d07dd40e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c4558b2ea94cc6c4d9a5a491d07dd40e,
         type: 3}
@@ -421,8 +429,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   greenMaterial: {fileID: 2100000, guid: 0deac2a3688880b4db4e618b46ecfd82, type: 2}
-  ownMaterial: {fileID: 0}
-  tempMaterial: {fileID: 0}
+  redMaterial: {fileID: 2100000, guid: e148d2e31b3537b488627d49a86d5439, type: 2}
+  whiteMaterial: {fileID: 2100000, guid: 2f100abd3ba716946bbb1606d739cec1, type: 2}
+  sliceType: 0
 --- !u!1001 &2666066704702289919
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -505,6 +514,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: pizza_dilimi (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c4558b2ea94cc6c4d9a5a491d07dd40e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c4558b2ea94cc6c4d9a5a491d07dd40e,
         type: 3}
@@ -602,8 +616,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   greenMaterial: {fileID: 2100000, guid: 0deac2a3688880b4db4e618b46ecfd82, type: 2}
-  ownMaterial: {fileID: 0}
-  tempMaterial: {fileID: 0}
+  redMaterial: {fileID: 2100000, guid: e148d2e31b3537b488627d49a86d5439, type: 2}
+  whiteMaterial: {fileID: 2100000, guid: 2f100abd3ba716946bbb1606d739cec1, type: 2}
+  sliceType: 0
 --- !u!1001 &4523685738057925314
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -686,6 +701,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: pizza_dilimi (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c4558b2ea94cc6c4d9a5a491d07dd40e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c4558b2ea94cc6c4d9a5a491d07dd40e,
         type: 3}
@@ -777,8 +797,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   greenMaterial: {fileID: 2100000, guid: 0deac2a3688880b4db4e618b46ecfd82, type: 2}
-  ownMaterial: {fileID: 0}
-  tempMaterial: {fileID: 0}
+  redMaterial: {fileID: 2100000, guid: e148d2e31b3537b488627d49a86d5439, type: 2}
+  whiteMaterial: {fileID: 2100000, guid: 2f100abd3ba716946bbb1606d739cec1, type: 2}
+  sliceType: 0
 --- !u!4 &4129208545445733673 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c4558b2ea94cc6c4d9a5a491d07dd40e,
@@ -867,6 +888,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: pizza_dilimi (10)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c4558b2ea94cc6c4d9a5a491d07dd40e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c4558b2ea94cc6c4d9a5a491d07dd40e,
         type: 3}
@@ -964,8 +990,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   greenMaterial: {fileID: 2100000, guid: 0deac2a3688880b4db4e618b46ecfd82, type: 2}
-  ownMaterial: {fileID: 0}
-  tempMaterial: {fileID: 0}
+  redMaterial: {fileID: 2100000, guid: e148d2e31b3537b488627d49a86d5439, type: 2}
+  whiteMaterial: {fileID: 2100000, guid: 2f100abd3ba716946bbb1606d739cec1, type: 2}
+  sliceType: 0
 --- !u!1001 &5009125784441353946
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1048,6 +1075,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: pizza_dilimi (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c4558b2ea94cc6c4d9a5a491d07dd40e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c4558b2ea94cc6c4d9a5a491d07dd40e,
         type: 3}
@@ -1145,8 +1177,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   greenMaterial: {fileID: 2100000, guid: 0deac2a3688880b4db4e618b46ecfd82, type: 2}
-  ownMaterial: {fileID: 0}
-  tempMaterial: {fileID: 0}
+  redMaterial: {fileID: 2100000, guid: e148d2e31b3537b488627d49a86d5439, type: 2}
+  whiteMaterial: {fileID: 2100000, guid: 2f100abd3ba716946bbb1606d739cec1, type: 2}
+  sliceType: 0
 --- !u!1001 &5774108238142966496
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1229,6 +1262,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: pizza_dilimi (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c4558b2ea94cc6c4d9a5a491d07dd40e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c4558b2ea94cc6c4d9a5a491d07dd40e,
         type: 3}
@@ -1326,8 +1364,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   greenMaterial: {fileID: 2100000, guid: 0deac2a3688880b4db4e618b46ecfd82, type: 2}
-  ownMaterial: {fileID: 0}
-  tempMaterial: {fileID: 0}
+  redMaterial: {fileID: 2100000, guid: e148d2e31b3537b488627d49a86d5439, type: 2}
+  whiteMaterial: {fileID: 2100000, guid: 2f100abd3ba716946bbb1606d739cec1, type: 2}
+  sliceType: 0
 --- !u!1001 &5803030219714665977
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1410,6 +1449,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: pizza_dilimi (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c4558b2ea94cc6c4d9a5a491d07dd40e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c4558b2ea94cc6c4d9a5a491d07dd40e,
         type: 3}
@@ -1507,8 +1551,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   greenMaterial: {fileID: 2100000, guid: 0deac2a3688880b4db4e618b46ecfd82, type: 2}
-  ownMaterial: {fileID: 0}
-  tempMaterial: {fileID: 0}
+  redMaterial: {fileID: 2100000, guid: e148d2e31b3537b488627d49a86d5439, type: 2}
+  whiteMaterial: {fileID: 2100000, guid: 2f100abd3ba716946bbb1606d739cec1, type: 2}
+  sliceType: 0
 --- !u!1001 &5974343598836325684
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1591,6 +1636,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: pizza_dilimi (11)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c4558b2ea94cc6c4d9a5a491d07dd40e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c4558b2ea94cc6c4d9a5a491d07dd40e,
         type: 3}
@@ -1688,8 +1738,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   greenMaterial: {fileID: 2100000, guid: 0deac2a3688880b4db4e618b46ecfd82, type: 2}
-  ownMaterial: {fileID: 0}
-  tempMaterial: {fileID: 0}
+  redMaterial: {fileID: 2100000, guid: e148d2e31b3537b488627d49a86d5439, type: 2}
+  whiteMaterial: {fileID: 2100000, guid: 2f100abd3ba716946bbb1606d739cec1, type: 2}
+  sliceType: 0
 --- !u!1001 &7738351430882516826
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1772,6 +1823,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: pizza_dilimi
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c4558b2ea94cc6c4d9a5a491d07dd40e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c4558b2ea94cc6c4d9a5a491d07dd40e,
         type: 3}
@@ -1863,8 +1919,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   greenMaterial: {fileID: 2100000, guid: 0deac2a3688880b4db4e618b46ecfd82, type: 2}
-  ownMaterial: {fileID: 0}
-  tempMaterial: {fileID: 0}
+  redMaterial: {fileID: 2100000, guid: e148d2e31b3537b488627d49a86d5439, type: 2}
+  whiteMaterial: {fileID: 2100000, guid: 2f100abd3ba716946bbb1606d739cec1, type: 2}
+  sliceType: 0
 --- !u!4 &7849383673661896881 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c4558b2ea94cc6c4d9a5a491d07dd40e,
@@ -1956,6 +2013,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c4558b2ea94cc6c4d9a5a491d07dd40e,
         type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c4558b2ea94cc6c4d9a5a491d07dd40e,
+        type: 3}
       propertyPath: m_TagString
       value: slice
       objectReference: {fileID: 0}
@@ -2044,8 +2106,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   greenMaterial: {fileID: 2100000, guid: 0deac2a3688880b4db4e618b46ecfd82, type: 2}
-  ownMaterial: {fileID: 0}
-  tempMaterial: {fileID: 0}
+  redMaterial: {fileID: 2100000, guid: e148d2e31b3537b488627d49a86d5439, type: 2}
+  whiteMaterial: {fileID: 2100000, guid: 2f100abd3ba716946bbb1606d739cec1, type: 2}
+  sliceType: 0
 --- !u!4 &7521398302000006851 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c4558b2ea94cc6c4d9a5a491d07dd40e,
@@ -2134,6 +2197,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: pizza_dilimi (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c4558b2ea94cc6c4d9a5a491d07dd40e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c4558b2ea94cc6c4d9a5a491d07dd40e,
         type: 3}
@@ -2231,5 +2299,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   greenMaterial: {fileID: 2100000, guid: 0deac2a3688880b4db4e618b46ecfd82, type: 2}
-  ownMaterial: {fileID: 0}
-  tempMaterial: {fileID: 0}
+  redMaterial: {fileID: 2100000, guid: e148d2e31b3537b488627d49a86d5439, type: 2}
+  whiteMaterial: {fileID: 2100000, guid: 2f100abd3ba716946bbb1606d739cec1, type: 2}
+  sliceType: 0

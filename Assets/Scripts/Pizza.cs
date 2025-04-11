@@ -4,75 +4,66 @@ using UnityEngine;
 public class Pizza : MonoBehaviour
 {
 
-    public List<Transform> slices = new List<Transform>();
-    
-    public Material redMaterial;
+    public List<Transform> slices = new List<Transform>(); 
     public GameObject wall;
     GameManager manager;
     void Start()
     {
         manager = FindAnyObjectByType<GameManager>();
         foreach (Transform slice in transform)
-        { 
+        {
             slices.Add(slice);
+
         }
-        int randomInt = Random.Range(0, slices.Count);// enum slice type 
- 
+        int randomInt = Random.Range(0, slices.Count);
+        int redCount;
+
         if (randomInt % 2 == 0)
-        { 
-            for (int i = 0; i < 2; i++)
-            {
-                int tempRandomInt = Random.Range(0, slices.Count);
-                slices[tempRandomInt].gameObject.GetComponent<Renderer>().material = redMaterial;
-                slices[tempRandomInt].gameObject.tag = "redSlice";
-            } 
+        {
+            redCount = 2;
         }
         else if (randomInt % 3 == 0)
         {
-            for (int i = 0; i < 3; i++)
-            {
-                int tempRandomInt = Random.Range(0, slices.Count);
-                slices[tempRandomInt].gameObject.GetComponent<Renderer>().material = redMaterial;
-                slices[tempRandomInt].gameObject.tag = "redSlice";
-            } 
+            redCount = 2;
         }
         else
         {
-            int tempRandomInt = Random.Range(0, slices.Count);
-            slices[tempRandomInt].gameObject.GetComponent<Renderer>().material = redMaterial;
-            slices[tempRandomInt].gameObject.tag = "redSlice";
+            redCount = 1;
         }
 
-        slices[randomInt].gameObject.GetComponent<MeshCollider>().convex = true;
-        slices[randomInt].gameObject.GetComponent<MeshCollider>().isTrigger = true;
-        slices[randomInt].gameObject.tag = "gap";
-        slices[randomInt].gameObject.GetComponent<MeshRenderer>().enabled = false;
-         
+        while (redCount > 0)
+        {
+            int tempRandomInt = Random.Range(0, slices.Count);
+            slices[tempRandomInt].gameObject.GetComponent<Slice>().SetRedSlice();
+            redCount--;
+        }
+
+        slices[randomInt].gameObject.GetComponent<Slice>().SetGap();
+
     }
     public void DestroyPizza()
     {
-
+        if (wall != null)
+        {
+            wall.GetComponentInChildren<Wall>().DestroyWall();
+        }
         foreach (Transform slice in slices)
         {
-            Vector3 randomDirection = new Vector3(Random.Range(-1f, 1f), 1f, Random.Range(-1f, 1f)).normalized;
-            float randomForce = Random.Range(5, 10); 
-            slice.GetComponent<MeshCollider>().enabled = false;
-            Rigidbody sliceRB = slice.GetComponent<Rigidbody>();
-            sliceRB.isKinematic = false;
-            sliceRB.AddForce(randomDirection * randomForce, ForceMode.Impulse);
+            slice.GetComponent<Slice>().DestroySlice();
         }
-        Invoke(nameof(DestroySlices), 5);
-         
+        Invoke(nameof(DestroyObjects), 2);
+
     }
-    public void DestroySlices()
+    public void DestroyObjects()
     {
         manager.pizzas.Remove(gameObject);
-        
         Destroy(gameObject);
         if (wall != null)
-        { 
+        {
             Destroy(wall);
+            manager.walls.Remove(wall);   
         }
+
 
     }
 
