@@ -2,52 +2,59 @@ using UnityEngine;
 
 public class Slice : MonoBehaviour
 {
-    public Material greenMaterial; 
-    public Material redMaterial; 
-    public Material whiteMaterial;
+    private Vector3 gapPosition = new Vector3(0, -0.4f, 0);  
+    [SerializeField] Material greenMaterial;
+    [SerializeField] Material redMaterial;
+    [SerializeField] Material whiteMaterial;
+    [SerializeField] MeshCollider meshCollider;
+    [SerializeField] Renderer renderer;
+
+    [SerializeField] Rigidbody rb;
+
+
     
     public SliceType sliceType ;
-
-    Rigidbody rb;
-
-    private void Start()
+    
+    private void Awake()
     { 
         rb = gameObject.GetComponent<Rigidbody>();
+        meshCollider = rb.GetComponent<MeshCollider>();
+        renderer = gameObject.GetComponent<Renderer>();
 
     }
     public void SetRedSlice()
     {
         sliceType = SliceType.Redslice ;
-        gameObject.GetComponent<Renderer>().material = redMaterial;
-        gameObject.tag = "redSlice";
+        renderer.material = redMaterial;
+        gameObject.tag = Utils.RED_SLICE_TAG;
     }
     public void SetGap()
     {
         sliceType = SliceType.Gap;
-        gameObject.GetComponent<MeshCollider>().convex = true;
-        gameObject.GetComponent<MeshCollider>().isTrigger = true;
-        gameObject.tag = "gap";
+        meshCollider.convex = true;
+        meshCollider.isTrigger = true;
+        gameObject.tag = Utils.GAP_SLICE_TAG;
         gameObject.GetComponent<MeshRenderer>().enabled = false;
-        gameObject.transform.localPosition = new Vector3(0, -0.2f, 0); 
+        gameObject.transform.localPosition = gapPosition;
     }
 
     public void ChangeColor(bool combo)
     {
         if (combo)
         {
-            GetComponent<Renderer>().material = greenMaterial;
+            renderer.material = greenMaterial;
 
         }
         else
         {
             if (sliceType == SliceType.Redslice)
             {
-                GetComponent<Renderer>().material = redMaterial;
+                renderer.material = redMaterial;
             }
             else
             {
                 
-                GetComponent<Renderer>().material = whiteMaterial;
+                renderer.material = whiteMaterial;
             }
 
         }
@@ -57,7 +64,7 @@ public class Slice : MonoBehaviour
     {
         Vector3 randomDirection = new Vector3(Random.Range(-1f, 1f), 1f, Random.Range(-1f, 1f)).normalized;
         float randomForce = Random.Range(5, 10);
-        gameObject.GetComponent<MeshCollider>().enabled = false;
+        meshCollider.enabled = false;
         rb.isKinematic = false;
         rb.AddForce(randomDirection * randomForce, ForceMode.Impulse);
     }
