@@ -7,6 +7,7 @@ public class Slice : MonoBehaviour
     [SerializeField] Material redMaterial;
     [SerializeField] Material whiteMaterial;
     [SerializeField] MeshCollider meshCollider;
+    [SerializeField] BoxCollider boxCollider;
     [SerializeField] Renderer renderer;
 
     [SerializeField] Rigidbody rb;
@@ -18,7 +19,8 @@ public class Slice : MonoBehaviour
     private void Awake()
     { 
         rb = gameObject.GetComponent<Rigidbody>();
-        meshCollider = rb.GetComponent<MeshCollider>();
+        //meshCollider = gameObject.GetComponent<MeshCollider>();
+        boxCollider = rb.GetComponent<BoxCollider>();
         renderer = gameObject.GetComponent<Renderer>();
 
     }
@@ -31,10 +33,12 @@ public class Slice : MonoBehaviour
     public void SetGap()
     {
         sliceType = SliceType.Gap;
-        meshCollider.convex = true;
-        meshCollider.isTrigger = true;
+        //meshCollider.convex = true;
+        //meshCollider.isTrigger = true;
+        boxCollider.isTrigger = true;
         gameObject.tag = Utils.GAP_SLICE_TAG;
         gameObject.GetComponent<MeshRenderer>().enabled = false;
+        //gameObject.GetComponent<MeshRenderer>().material = greenMaterial;   
         gameObject.transform.localPosition = gapPosition;
     }
 
@@ -64,7 +68,8 @@ public class Slice : MonoBehaviour
     {
         Vector3 randomDirection = new Vector3(Random.Range(-1f, 1f), 1f, Random.Range(-1f, 1f)).normalized;
         float randomForce = Random.Range(5, 10);
-        meshCollider.enabled = false;
+        //meshCollider.enabled = false;
+        boxCollider.enabled = false;
         rb.isKinematic = false;
         rb.AddForce(randomDirection * randomForce, ForceMode.Impulse);
     }
