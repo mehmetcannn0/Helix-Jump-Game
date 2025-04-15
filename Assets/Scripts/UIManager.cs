@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] LevelManager levelManager;
+    LevelManager levelManager;
     [SerializeField] TextMeshProUGUI currentLevelText;
     [SerializeField] TextMeshProUGUI nextLevelText;
     [SerializeField] TextMeshProUGUI scoreText;
@@ -16,8 +16,23 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI comboUI;
     public GameObject startPanel;
     public GameObject levelProgressUI;
+
+    public static UIManager Instance;
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
+
     private void Start()
     {
+        levelManager = LevelManager.Instance;
         SetBestScore();
     }
     public void SetUIForStart()
@@ -51,4 +66,15 @@ public class UIManager : MonoBehaviour
             bestScoreText.text = bestScore.ToString();
         }
     }
+    public void MakeGreenSlice(bool status)
+    {
+        foreach (GameObject pizza in levelManager.pizzasInLevel)
+        {
+            foreach (Slice sliceInPizza in pizza.GetComponentsInChildren<Slice>())
+            {
+                sliceInPizza.ChangeColor(status);
+            }
+        }
+    }
+
 }

@@ -2,13 +2,15 @@ using UnityEngine;
 
 public class Slice : MonoBehaviour
 {
-    private Vector3 gapPosition = new Vector3(0, -0.4f, 0);  
+    private Vector3 gapPosition = new Vector3(0, -0.3f, 0);  
     [SerializeField] Material greenMaterial;
     [SerializeField] Material redMaterial;
     [SerializeField] Material whiteMaterial;
     [SerializeField] MeshCollider meshCollider;
     [SerializeField] BoxCollider boxCollider;
     [SerializeField] Renderer renderer;
+
+    public float defaultRotationY;
 
     [SerializeField] Rigidbody rb;
 
@@ -24,6 +26,11 @@ public class Slice : MonoBehaviour
         renderer = gameObject.GetComponent<Renderer>();
 
     }
+    private void Start()
+    {
+        defaultRotationY = transform.rotation.eulerAngles.y;
+    }
+
     public void SetRedSlice()
     {
         sliceType = SliceType.Redslice ;
@@ -72,6 +79,17 @@ public class Slice : MonoBehaviour
         boxCollider.enabled = false;
         rb.isKinematic = false;
         rb.AddForce(randomDirection * randomForce, ForceMode.Impulse);
+        //Invoke(nameof(SetDefaultValues),2f);
+    }
+    private void SetDefaultValues()
+    {
+
+        rb.isKinematic = true;
+        boxCollider.enabled = true;
+        rb.velocity = Vector3.zero;        
+        transform.Rotate(0,defaultRotationY,0);
+        transform.localPosition= Vector3.zero;
     }
 
+   
 }

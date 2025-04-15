@@ -12,10 +12,13 @@ public class Wall : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform.CompareTag(Utils.GAP_SLICE_TAG))
+        if (other.TryGetComponent(out Slice slice))
         {
-              
-                pizza.wall = null;
+            if (slice.sliceType  == SliceType.Gap)
+            {
+                
+            }
+            pizza.wall = null;
                 Destroy(gameObject.GetComponentInParent<Transform>().gameObject); 
         }
     }

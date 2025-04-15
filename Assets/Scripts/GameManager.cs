@@ -2,38 +2,57 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private int rotationSpeed = 100;
-    [SerializeField] PrefabManager prefabManager;
-    [SerializeField] LevelManager levelManager;
-    [SerializeField] UIManager uiManager;
+    PrefabManager prefabManager;
+    LevelManager levelManager;
+    UIManager uiManager;
 
     public Transform ballTransform;
-    public bool isGameActive = false;
+    public bool IsGameActive { get; private set; }
     public bool isRestart = true;
-     
-    
-    
+
+    public static GameManager Instance;
+
+    private void Awake()
+    {
+        // Eðer baþka bir örnek zaten varsa ve bu deðilse, kendini yok et
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        // Singleton instance'ý ayarla
+        Instance = this;
+
+        // Bu objenin sahneler arasýnda yok olmamasýný saðla (opsiyonel)
+        DontDestroyOnLoad(gameObject);
+    }
+    private void Start()
+    {
+        prefabManager = PrefabManager.Instance;
+        levelManager = LevelManager.Instance;
+        uiManager = UIManager.Instance;
+    }
+
     public void StartGame()
     {
         levelManager.StartLevel();
         levelManager.CreatePizzasAndWalls();
     }
 
-    public void GameOver()
-    { 
-        isGameActive = false;
-        uiManager.startPanel.SetActive(true);
-        uiManager.SetBestScore(); 
+    public void OnLevelStart()
+    {
+        IsGameActive = true;
     }
+
     public void RestartGame()
     {
         Time.timeScale = 1f;
         levelManager.RestartLevel();
         uiManager.UpdateSlider();
         isRestart = true;
-
-
     }
+
     public void NextLevel()
     {
         levelManager.NextLevel();
@@ -41,17 +60,10 @@ public class GameManager : MonoBehaviour
         RestartGame();
     }
 
-    private void Update()
+    public void GameOver()
     {
-        if (Input.touchCount > 0 && isGameActive)
-        {
-            Touch touch = Input.GetTouch(0);
-            if (touch.phase == TouchPhase.Moved)
-            {
-                levelManager.pizzasParent.transform.Rotate(new Vector3(levelManager.pizzasParent.transform.rotation.x, -touch.deltaPosition.x * rotationSpeed * Time.deltaTime, levelManager.pizzasParent.transform.rotation.z));
-            } 
-        }
-         
+        IsGameActive = false;
+        uiManager.startPanel.SetActive(true);
+        uiManager.SetBestScore();
     }
-
 }

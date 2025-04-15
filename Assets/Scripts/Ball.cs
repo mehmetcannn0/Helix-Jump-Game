@@ -1,19 +1,20 @@
-using System.Collections;
 using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
-    private bool hasBounced = false; 
+    private bool hasBounced ;
     private Vector3 ballStartPosition = new Vector3(0, 2f, -1.7f);
     private Rigidbody rb;
-    private GameManager gameManager;
-    private int combo = 0;
+    private int combo;
 
+    [SerializeField] GameManager gameManager;
     [SerializeField] LevelManager levelManager;
     [SerializeField] UIManager uiManager;
     [SerializeField] int bounceForce;
 
-   
+    readonly int MIN_COMBO_COUNT = 2;
+
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -21,7 +22,7 @@ public class Ball : MonoBehaviour
     }
     public void RegenerateBall()
     {
-        hasBounced = false; 
+        hasBounced = false;
         transform.position = ballStartPosition;
     }
     private void FixedUpdate()
@@ -31,113 +32,117 @@ public class Ball : MonoBehaviour
     public void IsBallFalling()
     {
         if (rb.velocity.y < 0 && hasBounced)
-        { 
+        {
 
             hasBounced = false;
         }
     }
 
     private void OnTriggerEnter(Collider other)
-    { 
+    {
 
         if (other.TryGetComponent(out Slice slice))
-        { 
+        {
 
             if (slice.sliceType == SliceType.Gap && !hasBounced)
-            { 
+            {
                 combo++;
                 uiManager.comboText.text = combo.ToString();
 
                 other.gameObject.GetComponentInParent<Pizza>().DestroyPizza();
 
-                levelManager.score += combo > 1 ? combo : 0 + levelManager.currentLevel;
-                levelManager.step++;
+                levelManager.IncreaseScore( combo > 1 ? combo : 0 + levelManager.currentLevel);
+                levelManager.IncreaseStep();
                 uiManager.UpdateSlider();
 
-                if (combo == 2)
+                if (combo == MIN_COMBO_COUNT)
                 {
                     ToggleComboUI();
-                    foreach (GameObject pizza in levelManager.pizzasInLevel)
-                    {
-                        foreach (Slice sliceInPizza in pizza.GetComponentsInChildren<Slice>())
-                        {
-                            sliceInPizza.ChangeColor(true);
-                        }
-                    }
+                    uiManager.MakeGreenSlice(true);
                 }
 
                 hasBounced = false;
             }
 
         }
- 
-    }
 
-  
+    } 
 
     private void OnCollisionEnter(Collision collision)
-    {  
+    {
 
-        if (combo >= 2)
+        if (combo >= MIN_COMBO_COUNT)
         {
-            levelManager.step++;
+            levelManager.IncreaseStep();
 
             hasBounced = true;
-             
+
             rb.velocity = Vector3.zero;
             rb.AddForce(bounceForce * Vector3.up, ForceMode.Impulse);
 
-            foreach (GameObject pizza in levelManager.pizzasInLevel)
+            uiManager.MakeGreenSlice(false);
+            /*
+              if (collision.gameObject.TryGetComponent(out Slice slice) || collision.gameObject.TryGetComponent(out Wall wall))
             {
-                foreach (Slice slice in pizza.GetComponentsInChildren<Slice>())
+                if (slice.sliceType == SliceType.Slice || slice.sliceType == SliceType.Redslice)
                 {
-                    slice.ChangeColor(false);
+                    collision.gameObject.GetComponentInParent<Pizza>().DestroyPizza();
                 }
+                else if (wall != null)
+                {
+                    wall.DestroyWall();
+                    wall.MakeDisabled();
+                }
+
             }
+             */
 
 
-            if (collision.transform.CompareTag(Utils.SLICE_TAG) || collision.transform.CompareTag(Utils.RED_SLICE_TAG))
+            if (collision.gameObject.TryGetComponent(out Slice slice))
             {
+                if (slice.sliceType == SliceType.Slice || slice.sliceType == SliceType.Redslice)
+                {
+                    collision.gameObject.GetComponentInParent<Pizza>().DestroyPizza();
+                }
 
-                collision.gameObject.GetComponentInParent<Pizza>().DestroyPizza();
-                
-                 
             }
             else if (collision.transform.TryGetComponent(out Wall wall))
-            {    
+            {
                 wall.DestroyWall();
                 wall.MakeDisabled();
             }
             Invoke(nameof(ToggleComboUI), 1f);
         }
         else if (collision.transform.CompareTag(Utils.RED_SLICE_TAG) || collision.transform.CompareTag(Utils.WALL_TAG))
-        { 
-            Time.timeScale = 0; 
+        {
+            Time.timeScale = 0;
 
             gameManager.GameOver();
         }
-        else if (collision.transform.CompareTag(Utils.SLICE_TAG) && !hasBounced )
+        else if (collision.transform.CompareTag(Utils.SLICE_TAG) && !hasBounced)
         {
 
-            hasBounced = true; 
+            hasBounced = true;
             rb.velocity = Vector3.zero;
-            rb.AddForce(bounceForce * Vector3.up, ForceMode.Impulse); 
+            rb.AddForce(bounceForce * Vector3.up, ForceMode.Impulse);
         }
         else if (collision.transform.CompareTag(Utils.FINISH_SLICE_TAG))
-        { 
+        {
             gameManager.NextLevel();
         }
         combo = 0;
     }
- 
+    //??
     public void ToggleComboUI()
     {
-        uiManager.comboText.gameObject.SetActive(combo >= 2);
-        uiManager.comboUI.gameObject.SetActive(combo >= 2);
+        uiManager.comboText.gameObject.SetActive(combo >= MIN_COMBO_COUNT);
+        uiManager.comboUI.gameObject.SetActive(combo >= MIN_COMBO_COUNT);
         uiManager.comboText.text = combo.ToString();
 
 
     }
+
+
 
 
 }

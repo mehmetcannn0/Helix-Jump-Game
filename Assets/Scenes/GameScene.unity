@@ -2554,10 +2554,10 @@ MonoBehaviour:
   nextLevelText: {fileID: 615125047}
   scoreText: {fileID: 371159501}
   levelProgressBar: {fileID: 1194655088}
-  startPanel: {fileID: 1848905075}
   bestScoreText: {fileID: 1338947387}
   comboText: {fileID: 1986110878}
   comboUI: {fileID: 1816597697}
+  startPanel: {fileID: 1848905075}
   levelProgressUI: {fileID: 756544050}
 --- !u!4 &1846787452
 Transform:
@@ -2607,8 +2607,6 @@ MonoBehaviour:
   levelManager: {fileID: 1908191011}
   uiManager: {fileID: 1846787451}
   ballTransform: {fileID: 2065078930}
-  rotationSpeed: 100
-  isGameActive: 0
   isRestart: 1
 --- !u!4 &1847367589
 Transform:
@@ -2778,6 +2776,52 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1573187046017340296}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1905039403
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1905039405}
+  - component: {fileID: 1905039404}
+  m_Layer: 0
+  m_Name: InputManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1905039404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1905039403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cace89ef3199db44aec807d7e8d44a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelManager: {fileID: 1908191011}
+  gameManager: {fileID: 1847367588}
+--- !u!4 &1905039405
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1905039403}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1908191010
 GameObject:
   m_ObjectHideFlags: 0
@@ -2810,7 +2854,7 @@ MonoBehaviour:
   gameManager: {fileID: 1847367588}
   uiManager: {fileID: 1846787451}
   prefabManager: {fileID: 43158181}
-  pizzasParent: {fileID: 148800101}
+  pizzasParent: {fileID: 148800102}
   cylinder: {fileID: 722082060}
   finishPizza: {fileID: 1901176269}
   pizzasInLevel: []
@@ -3381,10 +3425,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1e0982e9150920419e16256c39cd7f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameManager: {fileID: 1847367588}
   levelManager: {fileID: 1908191011}
   uiManager: {fileID: 1846787451}
   bounceForce: 6
-  manager: {fileID: 1847367588}
 --- !u!1001 &1573187046017340296
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3558,6 +3602,21 @@ PrefabInstance:
       propertyPath: m_TagString
       value: finish
       objectReference: {fileID: 0}
+    - target: {fileID: 7446560187168334323, guid: 053974e0844911c45a7043d26914fee3,
+        type: 3}
+      propertyPath: m_Convex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7446560187168334323, guid: 053974e0844911c45a7043d26914fee3,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7446560187168334323, guid: 053974e0844911c45a7043d26914fee3,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7468459607911719435, guid: 053974e0844911c45a7043d26914fee3,
         type: 3}
       propertyPath: m_Layer
@@ -3615,3 +3674,4 @@ SceneRoots:
   - {fileID: 1846787452}
   - {fileID: 1851190189}
   - {fileID: 827652043}
+  - {fileID: 1905039405}
