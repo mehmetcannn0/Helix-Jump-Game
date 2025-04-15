@@ -5,15 +5,16 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     [SerializeField] LevelManager levelManager;
-    public TextMeshProUGUI currentLevelText;
-    public TextMeshProUGUI nextLevelText;
-    public TextMeshProUGUI scoreText;
-    public Slider levelProgressBar;
-    public GameObject startPanel;
-    public TextMeshProUGUI bestScoreText;
+    [SerializeField] TextMeshProUGUI currentLevelText;
+    [SerializeField] TextMeshProUGUI nextLevelText;
+    [SerializeField] TextMeshProUGUI scoreText;
+    [SerializeField] Slider levelProgressBar;
+    [SerializeField] TextMeshProUGUI bestScoreText;
+
+
     public TextMeshProUGUI comboText;
     public TextMeshProUGUI comboUI;
-
+    public GameObject startPanel;
     public GameObject levelProgressUI;
     private void Start()
     {

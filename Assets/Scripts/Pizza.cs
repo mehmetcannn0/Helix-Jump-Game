@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class Pizza : MonoBehaviour
 {
+    private List<Transform> slices = new List<Transform>();
 
     [SerializeField] LevelManager levelManager;
-    public List<Transform> slices = new List<Transform>();
     public GameObject wall;
     private bool firstPizza = false;
     private void Awake()

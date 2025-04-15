@@ -5,16 +5,15 @@ public class Ball : MonoBehaviour
 {
     private bool hasBounced = false; 
     private Vector3 ballStartPosition = new Vector3(0, 2f, -1.7f);
+    private Rigidbody rb;
+    private GameManager gameManager;
+    private int combo = 0;
 
     [SerializeField] LevelManager levelManager;
     [SerializeField] UIManager uiManager;
     [SerializeField] int bounceForce;
-    
-    public Rigidbody rb;
-    public GameManager manager;
-    public int combo = 0;
 
-
+   
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -32,19 +31,20 @@ public class Ball : MonoBehaviour
     public void IsBallFalling()
     {
         if (rb.velocity.y < 0 && hasBounced)
-        {
+        { 
+
             hasBounced = false;
         }
     }
 
     private void OnTriggerEnter(Collider other)
     { 
+
         if (other.TryGetComponent(out Slice slice))
-        {
+        { 
 
             if (slice.sliceType == SliceType.Gap && !hasBounced)
             { 
-
                 combo++;
                 uiManager.comboText.text = combo.ToString();
 
@@ -76,7 +76,7 @@ public class Ball : MonoBehaviour
   
 
     private void OnCollisionEnter(Collision collision)
-    {
+    {  
 
         if (combo >= 2)
         {
@@ -111,9 +111,10 @@ public class Ball : MonoBehaviour
             Invoke(nameof(ToggleComboUI), 1f);
         }
         else if (collision.transform.CompareTag(Utils.RED_SLICE_TAG) || collision.transform.CompareTag(Utils.WALL_TAG))
-        {
+        { 
             Time.timeScale = 0; 
-            manager.GameOver();
+
+            gameManager.GameOver();
         }
         else if (collision.transform.CompareTag(Utils.SLICE_TAG) && !hasBounced )
         {
@@ -124,7 +125,7 @@ public class Ball : MonoBehaviour
         }
         else if (collision.transform.CompareTag(Utils.FINISH_SLICE_TAG))
         { 
-            manager.NextLevel();
+            gameManager.NextLevel();
         }
         combo = 0;
     }

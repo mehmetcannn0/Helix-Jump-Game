@@ -2,17 +2,16 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    private int rotationSpeed = 100;
     [SerializeField] PrefabManager prefabManager;
     [SerializeField] LevelManager levelManager;
     [SerializeField] UIManager uiManager;
 
     public Transform ballTransform;
-
-    public int rotationSpeed = 100;
     public bool isGameActive = false;
     public bool isRestart = true;
      
-
+    
     
     public void StartGame()
     {
