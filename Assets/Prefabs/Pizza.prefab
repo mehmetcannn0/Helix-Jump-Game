@@ -225,7 +225,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 32
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!114 &5063622967822398778
 MonoBehaviour:
@@ -247,7 +247,6 @@ MonoBehaviour:
   renderer: {fileID: 0}
   defaultRotationY: 0
   rb: {fileID: 0}
-  sliceType: 0
 --- !u!65 &7278821169570063956
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -448,7 +447,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 32
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!114 &7126181093633920327
 MonoBehaviour:
@@ -470,7 +469,6 @@ MonoBehaviour:
   renderer: {fileID: 0}
   defaultRotationY: 0
   rb: {fileID: 0}
-  sliceType: 0
 --- !u!65 &4202619231221458366
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -665,7 +663,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 32
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!114 &330415451869545303
 MonoBehaviour:
@@ -687,7 +685,6 @@ MonoBehaviour:
   renderer: {fileID: 0}
   defaultRotationY: 0
   rb: {fileID: 0}
-  sliceType: 0
 --- !u!65 &5777680446422195734
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -876,7 +873,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 32
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!114 &2629551905003295461
 MonoBehaviour:
@@ -898,7 +895,6 @@ MonoBehaviour:
   renderer: {fileID: 0}
   defaultRotationY: 0
   rb: {fileID: 0}
-  sliceType: 0
 --- !u!65 &6219642082081204471
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1099,7 +1095,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 32
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!114 &7875820149545757059
 MonoBehaviour:
@@ -1121,7 +1117,6 @@ MonoBehaviour:
   renderer: {fileID: 0}
   defaultRotationY: 0
   rb: {fileID: 0}
-  sliceType: 0
 --- !u!65 &3077954410680099296
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1316,7 +1311,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 32
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!114 &2996161909408744908
 MonoBehaviour:
@@ -1338,7 +1333,6 @@ MonoBehaviour:
   renderer: {fileID: 0}
   defaultRotationY: 0
   rb: {fileID: 0}
-  sliceType: 0
 --- !u!65 &7417175724529943804
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1533,7 +1527,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 32
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!114 &4061318223195441008
 MonoBehaviour:
@@ -1555,7 +1549,6 @@ MonoBehaviour:
   renderer: {fileID: 0}
   defaultRotationY: 0
   rb: {fileID: 0}
-  sliceType: 0
 --- !u!65 &6586931411330081718
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1750,7 +1743,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 32
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!114 &452350471503830244
 MonoBehaviour:
@@ -1772,7 +1765,6 @@ MonoBehaviour:
   renderer: {fileID: 0}
   defaultRotationY: 0
   rb: {fileID: 0}
-  sliceType: 0
 --- !u!65 &1865068965268795982
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1967,7 +1959,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 32
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!114 &8114347123613959510
 MonoBehaviour:
@@ -1989,7 +1981,6 @@ MonoBehaviour:
   renderer: {fileID: 0}
   defaultRotationY: 0
   rb: {fileID: 0}
-  sliceType: 0
 --- !u!65 &4363193858370890824
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2178,7 +2169,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 32
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!114 &8960468956225798370
 MonoBehaviour:
@@ -2200,7 +2191,6 @@ MonoBehaviour:
   renderer: {fileID: 0}
   defaultRotationY: 0
   rb: {fileID: 0}
-  sliceType: 0
 --- !u!65 &8338765948998252498
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2395,7 +2385,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 32
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!114 &7107249389359914767
 MonoBehaviour:
@@ -2417,7 +2407,6 @@ MonoBehaviour:
   renderer: {fileID: 0}
   defaultRotationY: 0
   rb: {fileID: 0}
-  sliceType: 0
 --- !u!65 &5308017704485926010
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2618,7 +2607,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 32
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!114 &2738693440651491396
 MonoBehaviour:
@@ -2640,7 +2629,6 @@ MonoBehaviour:
   renderer: {fileID: 0}
   defaultRotationY: 0
   rb: {fileID: 0}
-  sliceType: 0
 --- !u!65 &3275894529992121479
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -1596,7 +1596,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 40
+  field of view: 77.31
   orthographic: 0
   orthographic size: 10
   m_Depth: -1
@@ -2352,7 +2352,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 2065078930}
   m_Lens:
-    FieldOfView: 40
+    FieldOfView: 77.31
     OrthographicSize: 10
     NearClipPlane: 0.1
     FarClipPlane: 5000
@@ -2549,7 +2549,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c3ae02262d5dc54ab30491cc735487e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelManager: {fileID: 1908191011}
   currentLevelText: {fileID: 109033364}
   nextLevelText: {fileID: 615125047}
   scoreText: {fileID: 371159501}
@@ -2603,9 +2602,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dcc67654d7e5fe47998130258d55359, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabManager: {fileID: 0}
-  levelManager: {fileID: 1908191011}
-  uiManager: {fileID: 1846787451}
   ballTransform: {fileID: 2065078930}
   isRestart: 1
 --- !u!4 &1847367589
@@ -2805,8 +2801,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cace89ef3199db44aec807d7e8d44a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelManager: {fileID: 1908191011}
-  gameManager: {fileID: 1847367588}
 --- !u!4 &1905039405
 Transform:
   m_ObjectHideFlags: 0
@@ -2851,18 +2845,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae4c54deba0bebc4a8ea8863017330a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 1847367588}
-  uiManager: {fileID: 1846787451}
-  prefabManager: {fileID: 43158181}
   pizzasParent: {fileID: 148800102}
   cylinder: {fileID: 722082060}
   finishPizza: {fileID: 1901176269}
   pizzasInLevel: []
   wallsInLevel: []
-  levelLength: 0
-  currentLevel: 1
-  score: 0
-  step: 0
 --- !u!4 &1908191012
 Transform:
   m_ObjectHideFlags: 0
@@ -3580,7 +3567,7 @@ PrefabInstance:
     - target: {fileID: 6748575422550559207, guid: 053974e0844911c45a7043d26914fee3,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6784752039487971429, guid: 053974e0844911c45a7043d26914fee3,
         type: 3}

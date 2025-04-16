@@ -1,29 +1,30 @@
 using UnityEngine;
 
-public class Slice : MonoBehaviour
+public class Slice : MonoBehaviour, IDestroyable, IColorChangeable
 {
-    private Vector3 gapPosition = new Vector3(0, -0.3f, 0);  
+    private Vector3 gapPosition = new Vector3(0, -0.3f, 0);
     [SerializeField] Material greenMaterial;
     [SerializeField] Material redMaterial;
     [SerializeField] Material whiteMaterial;
     [SerializeField] MeshCollider meshCollider;
     [SerializeField] BoxCollider boxCollider;
-    [SerializeField] Renderer renderer;
+    [SerializeField] Renderer objectRenderer;
+
 
     public float defaultRotationY;
 
     [SerializeField] Rigidbody rb;
 
 
-    
-    public SliceType sliceType ;
-    
+
+    public ObjectType objectType { get; set; } = ObjectType.Slice;
+
     private void Awake()
-    { 
+    {
         rb = gameObject.GetComponent<Rigidbody>();
         //meshCollider = gameObject.GetComponent<MeshCollider>();
         boxCollider = rb.GetComponent<BoxCollider>();
-        renderer = gameObject.GetComponent<Renderer>();
+        objectRenderer = gameObject.GetComponent<Renderer>();
 
     }
     private void Start()
@@ -33,43 +34,52 @@ public class Slice : MonoBehaviour
 
     public void SetRedSlice()
     {
-        sliceType = SliceType.Redslice ;
-        renderer.material = redMaterial;
-        gameObject.tag = Utils.RED_SLICE_TAG;
+        objectType = ObjectType.RedSlice;
+        objectRenderer.material = redMaterial;
+        //gameObject.tag = Utils.RED_SLICE_TAG;
     }
     public void SetGap()
     {
-        sliceType = SliceType.Gap;
+        objectType = ObjectType.Gap;
         //meshCollider.convex = true;
         //meshCollider.isTrigger = true;
         boxCollider.isTrigger = true;
-        gameObject.tag = Utils.GAP_SLICE_TAG;
+        //gameObject.tag = Utils.GAP_SLICE_TAG;
         gameObject.GetComponent<MeshRenderer>().enabled = false;
         //gameObject.GetComponent<MeshRenderer>().material = greenMaterial;   
         gameObject.transform.localPosition = gapPosition;
+    }
+    public void SetFinishSlice()
+    {
+        objectType = ObjectType.FinishSlice;
     }
 
     public void ChangeColor(bool combo)
     {
         if (combo)
         {
-            renderer.material = greenMaterial;
+            objectRenderer.material = greenMaterial;
 
         }
         else
         {
-            if (sliceType == SliceType.Redslice)
+            if (objectType == ObjectType.RedSlice)
             {
-                renderer.material = redMaterial;
+                objectRenderer.material = redMaterial;
             }
             else
             {
-                
-                renderer.material = whiteMaterial;
+
+                objectRenderer.material = whiteMaterial;
             }
 
         }
 
+    }
+
+    public void DestroyObject()
+    {
+        gameObject.GetComponentInParent<Pizza>().DestroyPizza();
     }
     public void DestroySlice()
     {
@@ -79,17 +89,20 @@ public class Slice : MonoBehaviour
         boxCollider.enabled = false;
         rb.isKinematic = false;
         rb.AddForce(randomDirection * randomForce, ForceMode.Impulse);
-        //Invoke(nameof(SetDefaultValues),2f);
+        //  Invoke(nameof(SetDefaultValues), 2f);
     }
     private void SetDefaultValues()
     {
-
+        objectType = ObjectType.Slice;
         rb.isKinematic = true;
         boxCollider.enabled = true;
-        rb.velocity = Vector3.zero;        
-        transform.Rotate(0,defaultRotationY,0);
-        transform.localPosition= Vector3.zero;
+        boxCollider.isTrigger = false;
+        objectRenderer.material = whiteMaterial;
+        gameObject.GetComponent<MeshRenderer>().enabled = true;
+        rb.velocity = Vector3.zero;
+        transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.Euler(0, defaultRotationY, 0));
+
     }
 
-   
+
 }

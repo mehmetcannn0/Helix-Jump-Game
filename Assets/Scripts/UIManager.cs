@@ -66,15 +66,13 @@ public class UIManager : MonoBehaviour
             bestScoreText.text = bestScore.ToString();
         }
     }
-    public void MakeGreenSlice(bool status)
+    public void MakeGreenSlice(bool combo)
     {
         foreach (GameObject pizza in levelManager.pizzasInLevel)
         {
-            foreach (Slice sliceInPizza in pizza.GetComponentsInChildren<Slice>())
-            {
-                sliceInPizza.ChangeColor(status);
-            }
+           pizza.GetComponent<IColorChangeable>().ChangeColor(combo);
         }
+
     }
 
 }

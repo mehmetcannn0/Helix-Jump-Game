@@ -34,7 +34,7 @@ public class InputManager : MonoBehaviour
             {
 
                 float rotationY = /*levelManager.pizzasParent.transform.rotation.x, */-touch.deltaPosition.x * rotationSpeed * Time.deltaTime/*, levelManager.pizzasParent.transform.rotation.z);*/;
-                Debug.Log(rotationY);
+               
                 levelManager.RotateTower(rotationY);
             }
         }

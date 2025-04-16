@@ -1,17 +1,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pizza : MonoBehaviour
+public class Pizza : MonoBehaviour , IColorChangeable
 {
     private List<Transform> slices = new List<Transform>();
 
     [SerializeField] LevelManager levelManager;
     public GameObject wall;
-    private bool firstPizza = false;
+    private bool firstPizza;
+    private bool finishPizza;
     private void Awake()
     {
         levelManager = FindAnyObjectByType<LevelManager>();
-        firstPizza = levelManager.pizzasInLevel.Count == 0; 
+        firstPizza = levelManager.pizzasInLevel.Count == 0;
+        if (gameObject.CompareTag(Utils.FINISH_SLICE_TAG))
+        {
+            finishPizza = true;
+        }
     }
 
     void Start()
@@ -21,9 +26,9 @@ public class Pizza : MonoBehaviour
             slices.Add(slice);
 
         }
-        int randomInt = Random.Range(0, slices.Count);
-        //int randomInt = Random.Range(0, 2);
-        if (!firstPizza)
+      int randomInt = Random.Range(0, slices.Count);
+       //   int randomInt = Random.Range(0, 2);
+        if (!firstPizza && !finishPizza)
         {
             int redCount;
 
@@ -48,8 +53,36 @@ public class Pizza : MonoBehaviour
             }
 
         }
+        if (!finishPizza)
+        {
+            slices[randomInt].gameObject.GetComponent<Slice>().SetGap();
 
-        slices[randomInt].gameObject.GetComponent<Slice>().SetGap();
+        }
+
+    }
+    public void SetFinishPizza()
+    { 
+
+        transform.localPosition = new Vector3(0, -levelManager.levelLength, 0);
+
+        foreach (Transform item in slices)
+        {
+            item.GetComponent<Slice>().SetFinishSlice();
+        }
+    }
+
+
+    public void ChangeColor(bool combo)
+    {
+        foreach (Transform slice in slices)
+        {
+            slice.GetComponent<IColorChangeable>().ChangeColor(combo);
+            
+        }
+        if (wall != null)
+        {
+            wall.GetComponentInChildren<IColorChangeable>().ChangeColor(combo);
+        }
 
     }
     public void DestroyPizza()
@@ -67,11 +100,12 @@ public class Pizza : MonoBehaviour
     }
     public void DestroyObjects()
     {
+        
         levelManager.pizzasInLevel.Remove(gameObject);
         Destroy(gameObject);
         if (wall != null)
         {
-            Destroy(wall);
+           // Destroy(wall);
             levelManager.wallsInLevel.Remove(wall);
         }
 

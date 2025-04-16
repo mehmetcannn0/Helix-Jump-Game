@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
-    private bool hasBounced ;
+    private bool hasBounced;
     private Vector3 ballStartPosition = new Vector3(0, 2f, -1.7f);
     private Rigidbody rb;
     private int combo;
@@ -41,17 +41,18 @@ public class Ball : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
 
-        if (other.TryGetComponent(out Slice slice))
+        if (other.TryGetComponent(out IDestroyable idestroyable))
         {
 
-            if (slice.sliceType == SliceType.Gap && !hasBounced)
+            if (idestroyable.objectType == ObjectType.Gap && !hasBounced)
             {
                 combo++;
                 uiManager.comboText.text = combo.ToString();
 
-                other.gameObject.GetComponentInParent<Pizza>().DestroyPizza();
+                //other.gameObject.GetComponentInParent<Pizza>().DestroyPizza();
+                idestroyable.DestroyObject();
 
-                levelManager.IncreaseScore( combo > 1 ? combo : 0 + levelManager.currentLevel);
+                levelManager.IncreaseScore(combo > 1 ? combo : 0 + levelManager.currentLevel);
                 levelManager.IncreaseStep();
                 uiManager.UpdateSlider();
 
@@ -66,72 +67,57 @@ public class Ball : MonoBehaviour
 
         }
 
-    } 
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
 
-        if (combo >= MIN_COMBO_COUNT)
+
+        if (collision.gameObject.TryGetComponent(out IDestroyable idestroyable))
         {
-            levelManager.IncreaseStep();
-
-            hasBounced = true;
-
-            rb.velocity = Vector3.zero;
-            rb.AddForce(bounceForce * Vector3.up, ForceMode.Impulse);
-
-            uiManager.MakeGreenSlice(false);
-            /*
-              if (collision.gameObject.TryGetComponent(out Slice slice) || collision.gameObject.TryGetComponent(out Wall wall))
+            if (idestroyable.objectType == ObjectType.FinishSlice)
             {
-                if (slice.sliceType == SliceType.Slice || slice.sliceType == SliceType.Redslice)
+                levelManager.IncreaseScore(combo > 1 ? combo : 0 + levelManager.currentLevel);
+                levelManager.IncreaseStep();
+                gameManager.NextLevel();
+                if (combo >= MIN_COMBO_COUNT)
                 {
-                    collision.gameObject.GetComponentInParent<Pizza>().DestroyPizza();
+                    Invoke(nameof(ToggleComboUI), 1f);
+                    combo = 0;
                 }
-                else if (wall != null)
-                {
-                    wall.DestroyWall();
-                    wall.MakeDisabled();
-                }
-
             }
-             */
-
-
-            if (collision.gameObject.TryGetComponent(out Slice slice))
+            else if (combo >= MIN_COMBO_COUNT)
             {
-                if (slice.sliceType == SliceType.Slice || slice.sliceType == SliceType.Redslice)
-                {
-                    collision.gameObject.GetComponentInParent<Pizza>().DestroyPizza();
-                }
-
+                levelManager.IncreaseStep();
+                hasBounced = true;
+                rb.velocity = Vector3.zero;
+                rb.AddForce(bounceForce * Vector3.up, ForceMode.Impulse);
+                uiManager.MakeGreenSlice(false);
+                idestroyable.DestroyObject();
+                Invoke(nameof(ToggleComboUI), 1f);
             }
-            else if (collision.transform.TryGetComponent(out Wall wall))
+            else if (idestroyable.objectType == ObjectType.RedSlice || idestroyable.objectType == ObjectType.Wall)
             {
-                wall.DestroyWall();
-                wall.MakeDisabled();
+                Time.timeScale = 0;
+
+                gameManager.GameOver();
             }
-            Invoke(nameof(ToggleComboUI), 1f);
-        }
-        else if (collision.transform.CompareTag(Utils.RED_SLICE_TAG) || collision.transform.CompareTag(Utils.WALL_TAG))
-        {
-            Time.timeScale = 0;
+            else if (idestroyable.objectType == ObjectType.Slice && !hasBounced)
+            {
 
-            gameManager.GameOver();
-        }
-        else if (collision.transform.CompareTag(Utils.SLICE_TAG) && !hasBounced)
-        {
+                hasBounced = true;
+                rb.velocity = Vector3.zero;
+                rb.AddForce(bounceForce * Vector3.up, ForceMode.Impulse);
+            }
 
-            hasBounced = true;
-            rb.velocity = Vector3.zero;
-            rb.AddForce(bounceForce * Vector3.up, ForceMode.Impulse);
+            combo = 0;
         }
-        else if (collision.transform.CompareTag(Utils.FINISH_SLICE_TAG))
-        {
-            gameManager.NextLevel();
-        }
-        combo = 0;
+
+
     }
+
+
+
     //??
     public void ToggleComboUI()
     {

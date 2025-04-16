@@ -49,7 +49,7 @@ public class LevelManager : MonoBehaviour
         cylinder.transform.localScale = new Vector3(1.5f, currentLevel * 20, 1.5f);
         cylinder.transform.localPosition = new Vector3(0, -currentLevel * 20, 0);
         levelLength = cylinder.transform.localScale.y * 2;
-        finishPizza.transform.localPosition = new Vector3(0, -levelLength, 0);
+        finishPizza.GetComponent<Pizza>().SetFinishPizza();
 
         uiManager.SetUIForStart();
 

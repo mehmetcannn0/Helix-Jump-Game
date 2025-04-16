@@ -1,20 +1,29 @@
 using UnityEngine;
 
-public class Wall : MonoBehaviour
+public class Wall : MonoBehaviour, IDestroyable ,IColorChangeable
 {
-    [SerializeField] Rigidbody rb;
     private BoxCollider boxCollider;
+    [SerializeField] Rigidbody rb;
+    [SerializeField] Material greenMaterial;
+    [SerializeField] Material redMaterial;
+
+    [SerializeField] Renderer objectRenderer;
     public Pizza pizza;
+
+    public ObjectType objectType { get; set; }= ObjectType.Wall;
     private void Start()
     {
         boxCollider = GetComponent<BoxCollider>();
+
+        objectRenderer = gameObject.GetComponent<Renderer>();
+
 
     }
     private void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent(out Slice slice))
         {
-            if (slice.sliceType  == SliceType.Gap)
+            if (slice.objectType  == ObjectType.Gap)
             {
                 
             }
@@ -22,7 +31,21 @@ public class Wall : MonoBehaviour
                 Destroy(gameObject.GetComponentInParent<Transform>().gameObject); 
         }
     }
+    public void ChangeColor(bool combo)
+    {
+        if (combo)
+        {
+            objectRenderer.material = greenMaterial;
+            
+        }else { 
+            objectRenderer.material = redMaterial;
+        }
 
+    }
+    public void DestroyObject()
+    {
+        DestroyWall();
+    }
 
     public void DestroyWall()
     {
