@@ -6,12 +6,13 @@ public class LevelManager : MonoBehaviour
     GameManager gameManager;
     UIManager uiManager;
     PrefabManager prefabManager;
+
     [SerializeField] Transform pizzasParent;
+    [SerializeField] PizzaPool pizzaPool;
+    [SerializeField] Pizza finishPizza;
 
 
     public GameObject cylinder;
-    public GameObject finishPizza;
-
     public List<GameObject> pizzasInLevel;
     public List<GameObject> wallsInLevel;
 
@@ -21,6 +22,7 @@ public class LevelManager : MonoBehaviour
     public int step { get; private set; }
 
     public static LevelManager Instance;
+
 
     private void Awake()
     {
@@ -38,7 +40,6 @@ public class LevelManager : MonoBehaviour
         uiManager = UIManager.Instance;
         prefabManager = PrefabManager.Instance;
         currentLevel = 1;
-
     }
 
 
@@ -49,10 +50,9 @@ public class LevelManager : MonoBehaviour
         cylinder.transform.localScale = new Vector3(1.5f, currentLevel * 20, 1.5f);
         cylinder.transform.localPosition = new Vector3(0, -currentLevel * 20, 0);
         levelLength = cylinder.transform.localScale.y * 2;
-        finishPizza.GetComponent<Pizza>().SetFinishPizza();
-
+        finishPizza.enabled = true;
+        finishPizza .SetFinishPizza();
         uiManager.SetUIForStart();
-
         gameManager.ballTransform.gameObject.SetActive(true);
 
     }
@@ -67,7 +67,9 @@ public class LevelManager : MonoBehaviour
         {
             float randomYRotation = Random.Range(0f, 360f);
             GameObject newPizza = Instantiate(prefabManager.pizzaPrefab, new Vector3(0, i * 2, 0), Quaternion.identity);
-            newPizza.transform.SetParent(pizzasParent);
+            newPizza.transform.SetParent(pizzasParent); 
+            //GameObject newPizza = pizzaPool.GetPizza();
+            newPizza.transform.localPosition= new Vector3(0, i * 2, 0);
 
             if ((int)randomYRotation % 2 == 0 && i != 0)
             {
@@ -82,6 +84,7 @@ public class LevelManager : MonoBehaviour
 
         }
     }
+
     public void RestartLevel()
     {
         foreach (var pizza in pizzasInLevel)

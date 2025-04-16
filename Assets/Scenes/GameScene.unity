@@ -2208,6 +2208,52 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1663889662
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1663889664}
+  - component: {fileID: 1663889663}
+  m_Layer: 0
+  m_Name: Pizza Pool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &1663889663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1663889662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62be0e9d84781a341b443e4586253dea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pizzasParent: {fileID: 148800102}
+  poolSize: 20
+--- !u!4 &1663889664
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1663889662}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.7421204, y: -5.65, z: 0.6702672}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1799984694
 GameObject:
   m_ObjectHideFlags: 0
@@ -2602,8 +2648,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dcc67654d7e5fe47998130258d55359, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ballTransform: {fileID: 2065078930}
   isRestart: 1
+  ballTransform: {fileID: 2065078930}
 --- !u!4 &1847367589
 Transform:
   m_ObjectHideFlags: 0
@@ -2766,12 +2812,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1901176269 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8372198167692986026, guid: 053974e0844911c45a7043d26914fee3,
+--- !u!114 &1901176270 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6748575422550559207, guid: 053974e0844911c45a7043d26914fee3,
     type: 3}
   m_PrefabInstance: {fileID: 1573187046017340296}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b605192d9615d8d42972cee0c45ce3fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1905039403
 GameObject:
   m_ObjectHideFlags: 0
@@ -2783,7 +2835,7 @@ GameObject:
   - component: {fileID: 1905039405}
   - component: {fileID: 1905039404}
   m_Layer: 0
-  m_Name: InputManager
+  m_Name: '[InputManager]'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2846,8 +2898,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pizzasParent: {fileID: 148800102}
+  pizzaPool: {fileID: 1663889663}
+  finishPizza: {fileID: 1901176270}
   cylinder: {fileID: 722082060}
-  finishPizza: {fileID: 1901176269}
   pizzasInLevel: []
   wallsInLevel: []
 --- !u!4 &1908191012
@@ -3412,9 +3465,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1e0982e9150920419e16256c39cd7f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 1847367588}
-  levelManager: {fileID: 1908191011}
-  uiManager: {fileID: 1846787451}
   bounceForce: 6
 --- !u!1001 &1573187046017340296
 PrefabInstance:
@@ -3621,6 +3671,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8372198167692986026, guid: 053974e0844911c45a7043d26914fee3,
         type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8372198167692986026, guid: 053974e0844911c45a7043d26914fee3,
+        type: 3}
       propertyPath: m_TagString
       value: finish
       objectReference: {fileID: 0}
@@ -3662,3 +3717,4 @@ SceneRoots:
   - {fileID: 1851190189}
   - {fileID: 827652043}
   - {fileID: 1905039405}
+  - {fileID: 1663889664}

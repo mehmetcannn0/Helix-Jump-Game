@@ -1,6 +1,6 @@
-public enum ObjectType
+public enum DestroyableType
 {
-    Slice,
+    DefaultSlice,
     Gap,
     RedSlice,
     FinishSlice,

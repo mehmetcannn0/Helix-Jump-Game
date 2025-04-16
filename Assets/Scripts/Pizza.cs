@@ -1,14 +1,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pizza : MonoBehaviour , IColorChangeable
+public class Pizza : MonoBehaviour, IColorChangeable
 {
-    private List<Transform> slices = new List<Transform>();
 
-    [SerializeField] LevelManager levelManager;
-    public GameObject wall;
+    LevelManager levelManager;
+
+    private List<Transform> slices = new List<Transform>();
     private bool firstPizza;
     private bool finishPizza;
+
+    public GameObject wall;
+    readonly float DESTROY_DELAY_TIME = 2f;
     private void Awake()
     {
         levelManager = FindAnyObjectByType<LevelManager>();
@@ -26,8 +29,8 @@ public class Pizza : MonoBehaviour , IColorChangeable
             slices.Add(slice);
 
         }
-      int randomInt = Random.Range(0, slices.Count);
-       //   int randomInt = Random.Range(0, 2);
+        //  int randomInt = Random.Range(0, slices.Count);
+        int randomInt = Random.Range(0, 2);
         if (!firstPizza && !finishPizza)
         {
             int redCount;
@@ -60,11 +63,12 @@ public class Pizza : MonoBehaviour , IColorChangeable
         }
 
     }
+   
+
+
     public void SetFinishPizza()
-    { 
-
+    {
         transform.localPosition = new Vector3(0, -levelManager.levelLength, 0);
-
         foreach (Transform item in slices)
         {
             item.GetComponent<Slice>().SetFinishSlice();
@@ -77,7 +81,7 @@ public class Pizza : MonoBehaviour , IColorChangeable
         foreach (Transform slice in slices)
         {
             slice.GetComponent<IColorChangeable>().ChangeColor(combo);
-            
+
         }
         if (wall != null)
         {
@@ -95,18 +99,19 @@ public class Pizza : MonoBehaviour , IColorChangeable
         {
             slice.GetComponent<Slice>().DestroySlice();
         }
-        Invoke(nameof(DestroyObjects), 2);
+        Invoke(nameof(DestroyObjects), DESTROY_DELAY_TIME);
 
     }
     public void DestroyObjects()
     {
-        
         levelManager.pizzasInLevel.Remove(gameObject);
         Destroy(gameObject);
+        gameObject.SetActive(false);
         if (wall != null)
         {
-           // Destroy(wall);
+            Destroy(wall);
             levelManager.wallsInLevel.Remove(wall);
+            //wall.GetComponentInParent<Transform>().gameObject.SetActive(false);
         }
 
 

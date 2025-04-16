@@ -4,7 +4,8 @@ using UnityEngine;
 
 public interface IDestroyable 
 {
-    ObjectType objectType { get; set; }
+    DestroyableType objectType { get; set; }
 
     void DestroyObject();
+    //void OnInteracted(Ball ball);
 }

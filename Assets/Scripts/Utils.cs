@@ -6,8 +6,6 @@ public static class Utils
     public static readonly string WALL_TAG = "wall";
 
     public static readonly string FINISH_SLICE_TAG = "finish";
+    public static readonly string Start_SLICE_TAG = "start";
     public static readonly string BEST_SCORE = "BestScore";
-
-
-
 }

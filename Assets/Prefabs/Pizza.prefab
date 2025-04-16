@@ -56,7 +56,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b605192d9615d8d42972cee0c45ce3fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelManager: {fileID: 0}
   wall: {fileID: 0}
 --- !u!1001 &2294617130905626804
 PrefabInstance:
@@ -244,9 +243,9 @@ MonoBehaviour:
   whiteMaterial: {fileID: 2100000, guid: 2f100abd3ba716946bbb1606d739cec1, type: 2}
   meshCollider: {fileID: 0}
   boxCollider: {fileID: 0}
-  renderer: {fileID: 0}
-  defaultRotationY: 0
+  objectRenderer: {fileID: 0}
   rb: {fileID: 0}
+  defaultRotationY: 0
 --- !u!65 &7278821169570063956
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -466,9 +465,9 @@ MonoBehaviour:
   whiteMaterial: {fileID: 2100000, guid: 2f100abd3ba716946bbb1606d739cec1, type: 2}
   meshCollider: {fileID: 0}
   boxCollider: {fileID: 0}
-  renderer: {fileID: 0}
-  defaultRotationY: 0
+  objectRenderer: {fileID: 0}
   rb: {fileID: 0}
+  defaultRotationY: 0
 --- !u!65 &4202619231221458366
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -682,9 +681,9 @@ MonoBehaviour:
   whiteMaterial: {fileID: 2100000, guid: 2f100abd3ba716946bbb1606d739cec1, type: 2}
   meshCollider: {fileID: 0}
   boxCollider: {fileID: 0}
-  renderer: {fileID: 0}
-  defaultRotationY: 0
+  objectRenderer: {fileID: 0}
   rb: {fileID: 0}
+  defaultRotationY: 0
 --- !u!65 &5777680446422195734
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -892,9 +891,9 @@ MonoBehaviour:
   whiteMaterial: {fileID: 2100000, guid: 2f100abd3ba716946bbb1606d739cec1, type: 2}
   meshCollider: {fileID: 0}
   boxCollider: {fileID: 0}
-  renderer: {fileID: 0}
-  defaultRotationY: 0
+  objectRenderer: {fileID: 0}
   rb: {fileID: 0}
+  defaultRotationY: 0
 --- !u!65 &6219642082081204471
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1114,9 +1113,9 @@ MonoBehaviour:
   whiteMaterial: {fileID: 2100000, guid: 2f100abd3ba716946bbb1606d739cec1, type: 2}
   meshCollider: {fileID: 0}
   boxCollider: {fileID: 0}
-  renderer: {fileID: 0}
-  defaultRotationY: 0
+  objectRenderer: {fileID: 0}
   rb: {fileID: 0}
+  defaultRotationY: 0
 --- !u!65 &3077954410680099296
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1330,9 +1329,9 @@ MonoBehaviour:
   whiteMaterial: {fileID: 2100000, guid: 2f100abd3ba716946bbb1606d739cec1, type: 2}
   meshCollider: {fileID: 0}
   boxCollider: {fileID: 0}
-  renderer: {fileID: 0}
-  defaultRotationY: 0
+  objectRenderer: {fileID: 0}
   rb: {fileID: 0}
+  defaultRotationY: 0
 --- !u!65 &7417175724529943804
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1546,9 +1545,9 @@ MonoBehaviour:
   whiteMaterial: {fileID: 2100000, guid: 2f100abd3ba716946bbb1606d739cec1, type: 2}
   meshCollider: {fileID: 0}
   boxCollider: {fileID: 0}
-  renderer: {fileID: 0}
-  defaultRotationY: 0
+  objectRenderer: {fileID: 0}
   rb: {fileID: 0}
+  defaultRotationY: 0
 --- !u!65 &6586931411330081718
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1762,9 +1761,9 @@ MonoBehaviour:
   whiteMaterial: {fileID: 2100000, guid: 2f100abd3ba716946bbb1606d739cec1, type: 2}
   meshCollider: {fileID: 0}
   boxCollider: {fileID: 0}
-  renderer: {fileID: 0}
-  defaultRotationY: 0
+  objectRenderer: {fileID: 0}
   rb: {fileID: 0}
+  defaultRotationY: 0
 --- !u!65 &1865068965268795982
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1978,9 +1977,9 @@ MonoBehaviour:
   whiteMaterial: {fileID: 2100000, guid: 2f100abd3ba716946bbb1606d739cec1, type: 2}
   meshCollider: {fileID: 0}
   boxCollider: {fileID: 0}
-  renderer: {fileID: 0}
-  defaultRotationY: 0
+  objectRenderer: {fileID: 0}
   rb: {fileID: 0}
+  defaultRotationY: 0
 --- !u!65 &4363193858370890824
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2188,9 +2187,9 @@ MonoBehaviour:
   whiteMaterial: {fileID: 2100000, guid: 2f100abd3ba716946bbb1606d739cec1, type: 2}
   meshCollider: {fileID: 0}
   boxCollider: {fileID: 0}
-  renderer: {fileID: 0}
-  defaultRotationY: 0
+  objectRenderer: {fileID: 0}
   rb: {fileID: 0}
+  defaultRotationY: 0
 --- !u!65 &8338765948998252498
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2404,9 +2403,9 @@ MonoBehaviour:
   whiteMaterial: {fileID: 2100000, guid: 2f100abd3ba716946bbb1606d739cec1, type: 2}
   meshCollider: {fileID: 0}
   boxCollider: {fileID: 0}
-  renderer: {fileID: 0}
-  defaultRotationY: 0
+  objectRenderer: {fileID: 0}
   rb: {fileID: 0}
+  defaultRotationY: 0
 --- !u!65 &5308017704485926010
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2626,9 +2625,9 @@ MonoBehaviour:
   whiteMaterial: {fileID: 2100000, guid: 2f100abd3ba716946bbb1606d739cec1, type: 2}
   meshCollider: {fileID: 0}
   boxCollider: {fileID: 0}
-  renderer: {fileID: 0}
-  defaultRotationY: 0
+  objectRenderer: {fileID: 0}
   rb: {fileID: 0}
+  defaultRotationY: 0
 --- !u!65 &3275894529992121479
 BoxCollider:
   m_ObjectHideFlags: 0

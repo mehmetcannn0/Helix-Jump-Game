@@ -6,25 +6,20 @@ public class GameManager : MonoBehaviour
     LevelManager levelManager;
     UIManager uiManager;
 
-    public Transform ballTransform;
     public bool IsGameActive { get; private set; }
     public bool isRestart = true;
+    public Transform ballTransform;
 
     public static GameManager Instance;
 
     private void Awake()
     {
-        // Eðer baþka bir örnek zaten varsa ve bu deðilse, kendini yok et
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
             return;
         }
-
-        // Singleton instance'ý ayarla
         Instance = this;
-
-        // Bu objenin sahneler arasýnda yok olmamasýný saðla (opsiyonel)
         DontDestroyOnLoad(gameObject);
     }
     private void Start()

@@ -6,7 +6,6 @@ public class InputManager : MonoBehaviour
     GameManager gameManager;
 
     private float rotationSpeed = 100f;
-
     public static InputManager Instance;
 
     private void Awake()
@@ -19,6 +18,7 @@ public class InputManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
     }
+
     private void Start()
     {
         levelManager = LevelManager.Instance;
@@ -32,9 +32,7 @@ public class InputManager : MonoBehaviour
             Touch touch = Input.GetTouch(0);
             if (touch.phase == TouchPhase.Moved)
             {
-
-                float rotationY = /*levelManager.pizzasParent.transform.rotation.x, */-touch.deltaPosition.x * rotationSpeed * Time.deltaTime/*, levelManager.pizzasParent.transform.rotation.z);*/;
-               
+                float rotationY =-touch.deltaPosition.x * rotationSpeed * Time.deltaTime;               
                 levelManager.RotateTower(rotationY);
             }
         }

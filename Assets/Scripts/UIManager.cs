@@ -11,7 +11,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] Slider levelProgressBar;
     [SerializeField] TextMeshProUGUI bestScoreText;
 
-
     public TextMeshProUGUI comboText;
     public TextMeshProUGUI comboUI;
     public GameObject startPanel;
@@ -43,7 +42,6 @@ public class UIManager : MonoBehaviour
         nextLevelText.text = (levelManager.currentLevel + 1).ToString();
         levelProgressBar.value = levelManager.step * 2 / levelManager.levelLength;
         SetBestScore();
-
     }
 
     public void UpdateSlider()
@@ -52,6 +50,7 @@ public class UIManager : MonoBehaviour
         levelProgressBar.value = levelManager.step * 2 / (levelManager.levelLength - 2.0f);
 
     }
+
     public void SetBestScore()
     {
         int bestScore = PlayerPrefs.GetInt(Utils.BEST_SCORE, 0);
@@ -66,6 +65,7 @@ public class UIManager : MonoBehaviour
             bestScoreText.text = bestScore.ToString();
         }
     }
+
     public void MakeGreenSlice(bool combo)
     {
         foreach (GameObject pizza in levelManager.pizzasInLevel)

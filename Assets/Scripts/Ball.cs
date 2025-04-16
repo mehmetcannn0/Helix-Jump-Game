@@ -7,18 +7,20 @@ public class Ball : MonoBehaviour
     private Rigidbody rb;
     private int combo;
 
-    [SerializeField] GameManager gameManager;
-    [SerializeField] LevelManager levelManager;
-    [SerializeField] UIManager uiManager;
+    GameManager gameManager;
+    LevelManager levelManager;
+    UIManager uiManager;
     [SerializeField] int bounceForce;
 
     readonly int MIN_COMBO_COUNT = 2;
-
+    readonly float COMBO_DELAY_TIME = 1f;
 
     void Start()
     {
+        gameManager = GameManager.Instance;
+        levelManager = LevelManager.Instance;
+        uiManager = UIManager.Instance;
         rb = GetComponent<Rigidbody>();
-
     }
     public void RegenerateBall()
     {
@@ -29,94 +31,112 @@ public class Ball : MonoBehaviour
     {
         IsBallFalling();
     }
+
     public void IsBallFalling()
     {
         if (rb.velocity.y < 0 && hasBounced)
         {
-
             hasBounced = false;
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-
-        if (other.TryGetComponent(out IDestroyable idestroyable))
+        if (other.TryGetComponent(out IDestroyable destroyable))
         {
-
-            if (idestroyable.objectType == ObjectType.Gap && !hasBounced)
+            if (destroyable.objectType == DestroyableType.Gap && !hasBounced)
             {
-                combo++;
-                uiManager.comboText.text = combo.ToString();
-
-                //other.gameObject.GetComponentInParent<Pizza>().DestroyPizza();
-                idestroyable.DestroyObject();
-
-                levelManager.IncreaseScore(combo > 1 ? combo : 0 + levelManager.currentLevel);
-                levelManager.IncreaseStep();
-                uiManager.UpdateSlider();
-
-                if (combo == MIN_COMBO_COUNT)
-                {
-                    ToggleComboUI();
-                    uiManager.MakeGreenSlice(true);
-                }
-
-                hasBounced = false;
+                OnGapInteracted(destroyable);
             }
-
         }
-
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-
-
-        if (collision.gameObject.TryGetComponent(out IDestroyable idestroyable))
+        if (collision.gameObject.TryGetComponent(out IDestroyable destroyableObject))
         {
-            if (idestroyable.objectType == ObjectType.FinishSlice)
+            if (destroyableObject.objectType == DestroyableType.FinishSlice)
             {
-                levelManager.IncreaseScore(combo > 1 ? combo : 0 + levelManager.currentLevel);
-                levelManager.IncreaseStep();
-                gameManager.NextLevel();
-                if (combo >= MIN_COMBO_COUNT)
-                {
-                    Invoke(nameof(ToggleComboUI), 1f);
-                    combo = 0;
-                }
+                OnFinishSliceInteracted();
+                return;
             }
-            else if (combo >= MIN_COMBO_COUNT)
-            {
-                levelManager.IncreaseStep();
-                hasBounced = true;
-                rb.velocity = Vector3.zero;
-                rb.AddForce(bounceForce * Vector3.up, ForceMode.Impulse);
-                uiManager.MakeGreenSlice(false);
-                idestroyable.DestroyObject();
-                Invoke(nameof(ToggleComboUI), 1f);
-            }
-            else if (idestroyable.objectType == ObjectType.RedSlice || idestroyable.objectType == ObjectType.Wall)
-            {
-                Time.timeScale = 0;
 
-                gameManager.GameOver();
-            }
-            else if (idestroyable.objectType == ObjectType.Slice && !hasBounced)
+            if (combo >= MIN_COMBO_COUNT)
             {
-
-                hasBounced = true;
-                rb.velocity = Vector3.zero;
-                rb.AddForce(bounceForce * Vector3.up, ForceMode.Impulse);
+                OnComboInteraction(destroyableObject);
+                return;
             }
+
+            if (destroyableObject.objectType == DestroyableType.RedSlice || destroyableObject.objectType == DestroyableType.Wall)
+            {
+                OnObstacleInteracted();
+            }
+            else if (destroyableObject.objectType == DestroyableType.DefaultSlice && !hasBounced)
+            {
+                OnDefaultSliceInteracted();
+            }
+
+            //destroyableObject.OnInteracted(this);
 
             combo = 0;
         }
-
-
     }
 
+    private void OnGapInteracted(IDestroyable destroyable)
+    {
+        combo++;
+        uiManager.comboText.text = combo.ToString();
+        destroyable.DestroyObject();
+        levelManager.IncreaseScore(combo > 0 ? combo + levelManager.currentLevel : levelManager.currentLevel);
+        levelManager.IncreaseStep();
+        uiManager.UpdateSlider();
 
+        if (combo == MIN_COMBO_COUNT)
+        {
+            ToggleComboUI();
+            uiManager.MakeGreenSlice(true);
+        }
+
+        hasBounced = false;
+    }
+
+    private void OnFinishSliceInteracted()
+    {
+        levelManager.IncreaseScore(combo > 0 ? combo + levelManager.currentLevel : levelManager.currentLevel);
+        levelManager.IncreaseStep();
+        gameManager.NextLevel();
+
+        if (combo >= MIN_COMBO_COUNT)
+        {
+            Invoke(nameof(ToggleComboUI), COMBO_DELAY_TIME);
+        }
+        combo = 0;
+    }
+
+    private void OnComboInteraction(IDestroyable destroyable)
+    {
+        levelManager.IncreaseStep();
+        hasBounced = true;
+        rb.velocity = Vector3.zero;
+        rb.AddForce(bounceForce * Vector3.up, ForceMode.Impulse);
+        uiManager.MakeGreenSlice(false);
+        destroyable.DestroyObject();
+        combo = 0;
+        Invoke(nameof(ToggleComboUI),COMBO_DELAY_TIME);
+    }
+
+    private void OnObstacleInteracted()
+    {
+        Time.timeScale = 0;
+        gameManager.GameOver();
+    }
+
+    public void OnDefaultSliceInteracted()
+    {
+        hasBounced = true;
+        rb.velocity = Vector3.zero;
+        rb.AddForce(bounceForce * Vector3.up, ForceMode.Impulse);
+    }
 
     //??
     public void ToggleComboUI()
@@ -124,11 +144,6 @@ public class Ball : MonoBehaviour
         uiManager.comboText.gameObject.SetActive(combo >= MIN_COMBO_COUNT);
         uiManager.comboUI.gameObject.SetActive(combo >= MIN_COMBO_COUNT);
         uiManager.comboText.text = combo.ToString();
-
-
     }
-
-
-
 
 }
