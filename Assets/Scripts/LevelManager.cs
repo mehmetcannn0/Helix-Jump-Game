@@ -7,8 +7,7 @@ public class LevelManager : MonoBehaviour
     UIManager uiManager;
     PrefabManager prefabManager;
 
-    [SerializeField] Transform pizzasParent;
-    [SerializeField] PizzaPool pizzaPool;
+    [SerializeField] Transform pizzasParent; 
     [SerializeField] Pizza finishPizza;
 
 
@@ -67,8 +66,7 @@ public class LevelManager : MonoBehaviour
         {
             float randomYRotation = Random.Range(0f, 360f);
             GameObject newPizza = Instantiate(prefabManager.pizzaPrefab, new Vector3(0, i * 2, 0), Quaternion.identity);
-            newPizza.transform.SetParent(pizzasParent); 
-            //GameObject newPizza = pizzaPool.GetPizza();
+            newPizza.transform.SetParent(pizzasParent);  
             newPizza.transform.localPosition= new Vector3(0, i * 2, 0);
 
             if ((int)randomYRotation % 2 == 0 && i != 0)
@@ -78,7 +76,6 @@ public class LevelManager : MonoBehaviour
                 newPizza.GetComponent<Pizza>().wall = newWall;
                 newWall.GetComponentInChildren<Wall>().pizza = newPizza.GetComponent<Pizza>();
                 wallsInLevel.Add(newWall);
-
             }
             pizzasInLevel.Add(newPizza);
 
@@ -105,6 +102,7 @@ public class LevelManager : MonoBehaviour
         {
             score = 0;
             currentLevel = 1;
+            uiManager.SetUIForStart();
         }
 
     }

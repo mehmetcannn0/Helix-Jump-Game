@@ -122,6 +122,7 @@ MonoBehaviour:
   rb: {fileID: 6119435541389976841}
   greenMaterial: {fileID: 2100000, guid: 0deac2a3688880b4db4e618b46ecfd82, type: 2}
   redMaterial: {fileID: 2100000, guid: e148d2e31b3537b488627d49a86d5439, type: 2}
+  objectRenderer: {fileID: 5293051477720028919}
   pizza: {fileID: 0}
 --- !u!54 &6119435541389976841
 Rigidbody:

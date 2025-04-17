@@ -29,11 +29,24 @@ public class UIManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    private void OnEnable()
+    {
+        GameActions.OnComboActivated += OnComboActivated;
+        GameActions.OnComboDeactivated += OnComboDeactivated;
+    }
+
     private void Start()
     {
         levelManager = LevelManager.Instance;
         SetBestScore();
     }
+
+    private void OnDisable()
+    {
+        GameActions.OnComboActivated -= OnComboActivated;
+        GameActions.OnComboDeactivated -= OnComboDeactivated;
+    }
+
     public void SetUIForStart()
     {
         levelProgressUI.SetActive(true);
@@ -66,13 +79,19 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void MakeGreenSlice(bool combo)
+    private void OnComboActivated(int comboLevel)
     {
-        foreach (GameObject pizza in levelManager.pizzasInLevel)
-        {
-           pizza.GetComponent<IColorChangeable>().ChangeColor(combo);
-        }
+        comboText.text = comboLevel.ToString();
 
+        comboText.gameObject.SetActive(true);
+        comboUI.gameObject.SetActive(true);
     }
 
+    private void OnComboDeactivated()
+    {
+        comboText.text = "0";
+
+        comboText.gameObject.SetActive(false);
+        comboUI.gameObject.SetActive(false);
+    }
 }

@@ -17,26 +17,39 @@ public class Slice : MonoBehaviour, IDestroyable, IColorChangeable
 
     private void Awake()
     {
-        rb = gameObject.GetComponent<Rigidbody>(); 
+        rb = gameObject.GetComponent<Rigidbody>();
         boxCollider = rb.GetComponent<BoxCollider>();
         objectRenderer = gameObject.GetComponent<Renderer>();
 
     }
+
+    private void OnEnable()
+    {
+        GameActions.OnComboActivated += OnComboActivated;
+        GameActions.OnComboDeactivated += OnComboDeactivated;
+    }
+
     private void Start()
     {
         defaultRotationY = transform.rotation.eulerAngles.y;
     }
 
+    private void OnDisable()
+    {
+        GameActions.OnComboActivated -= OnComboActivated;
+        GameActions.OnComboDeactivated -= OnComboDeactivated;
+    }
+
     public void SetRedSlice()
     {
         objectType = DestroyableType.RedSlice;
-        objectRenderer.material = redMaterial; 
+        objectRenderer.material = redMaterial;
     }
     public void SetGap()
-    { 
-        objectType = DestroyableType.Gap; 
-        boxCollider.isTrigger = true; 
-        gameObject.GetComponent<MeshRenderer>().enabled = false;   
+    {
+        objectType = DestroyableType.Gap;
+        boxCollider.isTrigger = true;
+        gameObject.GetComponent<MeshRenderer>().enabled = false;
         gameObject.transform.localPosition = gapPosition;
     }
     public void SetFinishSlice()
@@ -44,9 +57,9 @@ public class Slice : MonoBehaviour, IDestroyable, IColorChangeable
         objectType = DestroyableType.FinishSlice;
     }
 
-    public void ChangeColor(bool combo)
+    public void ChangeColor(bool isComboActivated)
     {
-        if (combo)
+        if (isComboActivated)
         {
             objectRenderer.material = greenMaterial;
             return;
@@ -80,12 +93,22 @@ public class Slice : MonoBehaviour, IDestroyable, IColorChangeable
 
     }
 
+    private void OnComboActivated(int comboLevel)
+    {
+        ChangeColor(isComboActivated: true);
+    }
+
+    private void OnComboDeactivated()
+    {
+        ChangeColor(isComboActivated: false);
+    }
+
     //public void OnInteracted(Ball ball)
     //{
     //    switch (objectType)
     //    {
     //        case DestroyableType.Slice:
-    //            ball.OnDefaultSliceInteracted();
+    //            ball.OnDefaultSliceInteracted(ball);
     //            break;
     //        case DestroyableType.Gap:
     //            ball.On

@@ -1,9 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pizza : MonoBehaviour, IColorChangeable
+public class Pizza : MonoBehaviour
 {
-
     LevelManager levelManager;
 
     private List<Transform> slices = new List<Transform>();
@@ -63,7 +62,7 @@ public class Pizza : MonoBehaviour, IColorChangeable
         }
 
     }
-   
+     
 
 
     public void SetFinishPizza()
@@ -75,26 +74,13 @@ public class Pizza : MonoBehaviour, IColorChangeable
         }
     }
 
-
-    public void ChangeColor(bool combo)
-    {
-        foreach (Transform slice in slices)
-        {
-            slice.GetComponent<IColorChangeable>().ChangeColor(combo);
-
-        }
-        if (wall != null)
-        {
-            wall.GetComponentInChildren<IColorChangeable>().ChangeColor(combo);
-        }
-
-    }
     public void DestroyPizza()
     {
         if (wall != null)
         {
             wall.GetComponentInChildren<Wall>().DestroyWall();
         }
+
         foreach (Transform slice in slices)
         {
             slice.GetComponent<Slice>().DestroySlice();
@@ -113,8 +99,11 @@ public class Pizza : MonoBehaviour, IColorChangeable
             levelManager.wallsInLevel.Remove(wall);
             //wall.GetComponentInParent<Transform>().gameObject.SetActive(false);
         }
-
-
     }
 
 }
+
+//public static partial class GameActions
+//{
+
+//}

@@ -12,10 +12,22 @@ public class Wall : MonoBehaviour, IDestroyable, IColorChangeable
 
     public DestroyableType objectType { get; set; } = DestroyableType.Wall;
 
+    private void OnEnable()
+    {
+        GameActions.OnComboActivated += OnComboActivated;
+        GameActions.OnComboDeactivated += OnComboDeactivated;
+    }
+
     private void Start()
     {
         boxCollider = GetComponent<BoxCollider>();
         objectRenderer = gameObject.GetComponent<Renderer>();
+    }
+
+    private void OnDisable()
+    {
+        GameActions.OnComboActivated -= OnComboActivated;
+        GameActions.OnComboDeactivated -= OnComboDeactivated;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -30,18 +42,19 @@ public class Wall : MonoBehaviour, IDestroyable, IColorChangeable
 
         }
     }
-
-    public void ChangeColor(bool combo)
+    private void OnComboActivated(int comboLevel)
     {
-        if (combo)
-        {
-            objectRenderer.material = greenMaterial;
+        ChangeColor(isComboActivated: true);
+    }
 
-        }
-        else
-        {
-            objectRenderer.material = redMaterial;
-        }
+    private void OnComboDeactivated()
+    {
+        ChangeColor(isComboActivated: false);
+    }
+
+    public void ChangeColor(bool isComboActivated)
+    {
+        objectRenderer.material = isComboActivated ? greenMaterial : redMaterial;
     }
 
     public void DestroyObject()
@@ -67,12 +80,12 @@ public class Wall : MonoBehaviour, IDestroyable, IColorChangeable
     }
 
     private void SetDefaultValues()
-    { 
+    {
 
         rb.isKinematic = true;
         boxCollider.enabled = true;
         boxCollider.isTrigger = false;
-        objectRenderer.material = redMaterial; 
+        objectRenderer.material = redMaterial;
         rb.velocity = Vector3.zero;
         transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.Euler(0, 0, 0));
     }

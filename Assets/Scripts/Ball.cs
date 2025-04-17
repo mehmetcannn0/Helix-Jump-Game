@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Ball : MonoBehaviour
@@ -78,7 +79,7 @@ public class Ball : MonoBehaviour
 
             //destroyableObject.OnInteracted(this);
 
-            combo = 0;
+            OnComboDeactivated();
         }
     }
 
@@ -91,13 +92,15 @@ public class Ball : MonoBehaviour
         levelManager.IncreaseStep();
         uiManager.UpdateSlider();
 
-        if (combo == MIN_COMBO_COUNT)
-        {
-            ToggleComboUI();
-            uiManager.MakeGreenSlice(true);
-        }
+        CheckComboActivation();
 
         hasBounced = false;
+    }
+
+    private void CheckComboActivation()
+    {
+        if (combo == MIN_COMBO_COUNT)
+            GameActions.OnComboActivated?.Invoke(combo);
     }
 
     private void OnFinishSliceInteracted()
@@ -106,11 +109,11 @@ public class Ball : MonoBehaviour
         levelManager.IncreaseStep();
         gameManager.NextLevel();
 
-        if (combo >= MIN_COMBO_COUNT)
-        {
-            Invoke(nameof(ToggleComboUI), COMBO_DELAY_TIME);
-        }
-        combo = 0;
+        //if (combo >= MIN_COMBO_COUNT)
+        //{
+        //    //Invoke(nameof(ToggleComboUI), COMBO_DELAY_TIME);
+        //}
+        OnComboDeactivated();
     }
 
     private void OnComboInteraction(IDestroyable destroyable)
@@ -119,10 +122,9 @@ public class Ball : MonoBehaviour
         hasBounced = true;
         rb.velocity = Vector3.zero;
         rb.AddForce(bounceForce * Vector3.up, ForceMode.Impulse);
-        uiManager.MakeGreenSlice(false);
         destroyable.DestroyObject();
-        combo = 0;
-        Invoke(nameof(ToggleComboUI),COMBO_DELAY_TIME);
+        OnComboDeactivated();
+        //Invoke(nameof(ToggleComboUI),COMBO_DELAY_TIME);
     }
 
     private void OnObstacleInteracted()
@@ -138,12 +140,17 @@ public class Ball : MonoBehaviour
         rb.AddForce(bounceForce * Vector3.up, ForceMode.Impulse);
     }
 
-    //??
-    public void ToggleComboUI()
-    {
-        uiManager.comboText.gameObject.SetActive(combo >= MIN_COMBO_COUNT);
-        uiManager.comboUI.gameObject.SetActive(combo >= MIN_COMBO_COUNT);
-        uiManager.comboText.text = combo.ToString();
-    }
 
+
+    private void OnComboDeactivated()
+    {
+        combo = 0;
+        GameActions.OnComboDeactivated?.Invoke();
+    }
+}
+
+public static partial class GameActions
+{
+    public static Action<int> OnComboActivated;
+    public static Action OnComboDeactivated;
 }
