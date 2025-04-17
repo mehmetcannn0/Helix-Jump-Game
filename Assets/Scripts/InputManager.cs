@@ -5,7 +5,7 @@ public class InputManager : MonoBehaviour
     LevelManager levelManager;
     GameManager gameManager;
 
-    private float rotationSpeed = 100f;
+    [SerializeField] float rotationSpeed = 20f;
     public static InputManager Instance;
 
     private void Awake()

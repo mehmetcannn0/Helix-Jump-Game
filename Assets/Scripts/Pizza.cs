@@ -28,8 +28,8 @@ public class Pizza : MonoBehaviour
             slices.Add(slice);
 
         }
-        //  int randomInt = Random.Range(0, slices.Count);
-        int randomInt = Random.Range(0, 2);
+         int randomInt = Random.Range(0, slices.Count);
+       //  int randomInt = Random.Range(0, 2);
         if (!firstPizza && !finishPizza)
         {
             int redCount;
@@ -78,7 +78,7 @@ public class Pizza : MonoBehaviour
     {
         if (wall != null)
         {
-            wall.GetComponentInChildren<Wall>().DestroyWall();
+            wall./*GetComponentInChildren*/GetComponent<Wall>().DestroyWall();
         }
 
         foreach (Transform slice in slices)

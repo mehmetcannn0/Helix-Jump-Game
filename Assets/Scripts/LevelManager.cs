@@ -74,7 +74,7 @@ public class LevelManager : MonoBehaviour
                 GameObject newWall = Instantiate(prefabManager.wallPrefab, new Vector3(0, i * 2, 0), Quaternion.Euler(0f, randomYRotation, 0f));
                 newWall.transform.SetParent(pizzasParent);
                 newPizza.GetComponent<Pizza>().wall = newWall;
-                newWall.GetComponentInChildren<Wall>().pizza = newPizza.GetComponent<Pizza>();
+                newWall./*GetComponentInChildren*/GetComponent<Wall>().pizza = newPizza.GetComponent<Pizza>();
                 wallsInLevel.Add(newWall);
             }
             pizzasInLevel.Add(newPizza);

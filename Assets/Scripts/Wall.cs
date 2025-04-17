@@ -21,7 +21,7 @@ public class Wall : MonoBehaviour, IDestroyable, IColorChangeable
     private void Start()
     {
         boxCollider = GetComponent<BoxCollider>();
-        objectRenderer = gameObject.GetComponent<Renderer>();
+        objectRenderer = gameObject./*GetComponent*/GetComponentInChildren<Renderer>();
     }
 
     private void OnDisable()
